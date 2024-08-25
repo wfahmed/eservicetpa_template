@@ -1,0 +1,51 @@
+
+    /* Define the class for styling the thead */
+    .thead-dark-ggreen {
+        background: linear-gradient(to left, #027f02, #12340a 70% 100%); /* Set background color */
+        text-align: center; /* Center text */
+        color: white;              /* Set text color */
+        font-weight: bold;         /* Make text bold */
+        border-bottom: 3px solid #3b3b3b; /* Dark border at the bottom */
+        border-radius: 8px 8px 0 0; /* Rounded top corners */
+        padding: 12px; /* Padding inside the header cells */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Slight shadow effect */
+    }
+.thead-dark-gblue {
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Purple to blue gradient */
+    color: white; /* White text color */
+    text-align: center; /* Center text */
+    font-weight: bold; /* Bold text */
+    border-bottom: 3px solid #3b3b3b; /* Dark border at the bottom */
+    border-radius: 8px 8px 0 0; /* Rounded top corners */
+    padding: 12px; /* Padding inside the header cells */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Slight shadow effect */
+}
+.thead-dark-c {
+    background: linear-gradient(to left, #9f4e4e, #483c3c); /* Set background color */
+    text-align: center; /* Center text */
+    color: white;              /* Set text color */
+    font-weight: bold;         /* Make text bold */
+    border-bottom: 3px solid #3b3b3b; /* Dark border at the bottom */
+    border-radius: 8px 8px 0 0; /* Rounded top corners */
+    padding: 12px; /* Padding inside the header cells */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Slight shadow effect */
+}
+.thead-grey {
+    background-color: #607d8b;
+    color: white;
+    font-weight: bold;
+}
+.thead-dark-rounded {
+    background-color: #3f51b5;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    text-align: left;
+    font-weight: bold;
+}
+.thead-dark-green{
+    background-color: #009688;
+    color: white;
+    text-align: left;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
