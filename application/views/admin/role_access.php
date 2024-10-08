@@ -28,6 +28,7 @@
                                 <th>#</th>
                                 <th>الاسم باللغة الانجليزية</th>
                                 <th>الاسم باللغة العربية</th>
+                                <th>  قائمة فرعية</th>
                                 <th>إجراءات</th>
                                 </tr>
                         </thead>
@@ -42,6 +43,7 @@
                                 <td><?= $index; ?></td>
                                 <td><?= $m['menu'] ?></td>
                                 <td><?= $m['ar_menu']; ?></td>
+                                <td><?= $m['sub_title']; ?></td>
                                 <td>
                                    <a class="badge badge-danger" style="font-size:14px;" href="#!" onclick="deleteConfirm('<?= site_url('admin/delete_access_role/'.$m['id']); ?>')">حذف</a>
                                 </td>

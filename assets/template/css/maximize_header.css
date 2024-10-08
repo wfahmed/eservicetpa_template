@@ -1,0 +1,51 @@
+
+.col-md-12 {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    margin-top: 10px; /* Optional: Add some space above the button */
+}
+.btn-minimize{
+    color: #fff;
+    background-color: #d59c9c;
+    border-color: #c96b6b;
+}
+.card-header.details{
+    display: flex;
+    justify-content: space-between;
+    background: #674340;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+}
+.card-header.MAX{
+    display: flex;
+    justify-content: space-between;
+    background: #d59c9c;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+}
+.card-body {
+    padding: 15px;
+    background: #fff;
+    transition: height 0.3s ease;
+}
+.card-body.minimized {
+    height: 0; /* Completely collapse the content */
+    padding: 0; /* Remove padding */
+    overflow: hidden; /* Ensure no content is visible */
+}
+
+.card-body.expanded {
+    height: auto; /* Auto height for expanded state */
+    padding: 15px; /* Restore padding */
+    overflow: visible; /* Allow content to be visible */
+}
+.arrow {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.arrow.up {
+    transform: rotate(180deg); /* Arrow pointing up */
+}

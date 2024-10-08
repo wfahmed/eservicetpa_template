@@ -94,13 +94,13 @@
       <form action="<?= site_url('menu/addsubmenu'); ?>" method="post">
         <div class="modal-body">
             <div class="form-group">
-                <input type="text" class="form-control" id="title" name="title" placeholder="menu">
+                <input type="text" class="form-control" id="title" name="title" placeholder="menu"required>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="ar_title" name="ar_title" placeholder="الاسم">
+                <input type="text" class="form-control" id="ar_title" name="ar_title" placeholder="الاسم" required>
             </div>
             <div class="form-group">
-                <select name="menu_id" id="menu_id" class="form-control"  <?php
+                <select name="menu_id" id="menu_id" class="form-control" required <?php
                 if(isset( $param['gmenu_id']))echo 'readonly ';else echo
                 ''?>><?= $m['menu']; ?>>
                     <option value="">---اختر القائمة الرئيسية---</option>
@@ -113,10 +113,10 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="url" name="url" placeholder="الرابط">
+                <input type="text" class="form-control" id="url" name="url" placeholder="الرابط" required>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="icon" name="icon" placeholder="الرمز">
+                <input type="text" class="form-control" id="icon" name="icon" placeholder="الرمز" required>
             </div>
             <div class="form-group">
             <div class="col-md-12">

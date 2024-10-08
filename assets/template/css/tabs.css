@@ -1,8 +1,28 @@
 /* Tab container styling */
+.styled-textarea {
+    width: 100%;              /* Full width */
+    height: 150px;            /* Height */
+    padding: 10px;            /* Padding inside the textarea */
+    border-radius: 5px;       /* Rounded corners */
+    border: 1px solid #ccc;   /* Border color */
+    font-size: 16px;          /* Font size */
+    line-height: 1.5;         /* Line height */
+    resize: vertical;         /* Allow vertical resizing only */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    font-family: Arial, sans-serif; /* Font family */
+    background-color: #f8f8f8; /* Light background color */
+    color: #333;              /* Text color */
+}
+
+.styled-textarea:focus {
+    border-color: #007bff;    /* Change border color on focus */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25); /* Shadow on focus */
+    outline: none;            /* Remove default outline */
+}
 .tab-container {
     width: 100%;
     max-width: 100%;
-    margin: 50px auto;
+    margin: -7px auto;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;

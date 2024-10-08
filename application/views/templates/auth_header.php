@@ -8,17 +8,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
+  <meta name="<?php echo $this->security->get_csrf_token_name();?>"  content="<?=$this->security->get_csrf_hash();?>">
   <title><?= $title; ?></title>
 
   <!-- Custom fonts for this template-->
     <link href="<?= base_url('assets/'); ?>vendor/bootstrap/dist/css/bootstrap-rtl.min.css" rel="stylesheet">
 
     <link href="<?= base_url('assets/'); ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="<?= base_url('assets/'); ?>\template\css\font.css"  rel="stylesheet">
+  <link href="<?= base_url('assets/'); ?>\template\css\fonts\font.css"  rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="<?= base_url('assets/'); ?>css/sb-admin-2.css" rel="stylesheet">
+  <link href="<?= base_url('assets/'); ?>template\css\sb-admin-2.css" rel="stylesheet">
 
 </head>
 

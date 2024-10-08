@@ -3,8 +3,24 @@
         $('#btn-delete').attr('href', url);
         $('#deleteModal').modal();
     }
-</script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $('#openModalBtn').on('click', function(event) {
+            event.preventDefault(); // Prevent the default action of the link
 
+            // Show the modal
+            $('#newDefModal').modal('show');
+            $('#parent_id').select2({
+                placeholder: 'Select an option',
+                allowClear: true
+            });
+        });
+
+    // Reinitialize Select2 when the modal is hidden (optional)
+    $('#newDefModal').on('.modal.fade', function () {
+        $('#parent_id').select2('destroy'); // Destroy if needed, to prevent issues
+    });
+    });
+</script>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -17,7 +33,11 @@
 
     <div class="card col-lg-12 shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><a href="" data-toggle="modal" data-target="#newDefModal"><i class="fas fa-plus"></i> إضافة ثابت</a></h6>
+            <h6 class="m-0 font-weight-bold text-primary">
+                <a href="#" id="openModalBtn">
+                    <i class="fas fa-plus"></i> إضافة ثابت
+                </a>
+            </h6>
         </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -25,6 +45,7 @@
                     <thead class="thead-dark">
                                 <tr>
                                 <th>#</th>
+                                <th>code</th>
                                 <th>الثابت</th>
                                 <th> مساره</th>
                                 <th>إجراءات</th>
@@ -37,6 +58,7 @@
                         foreach($rows as $r) : ?>
                             <tr>
                                 <td><?= $index; ?></td>
+                                <td><?= $r['id']; ?></td>
                                 <td><?= $r['title']; ?></td>
                                 <td><?= $r['path']; ?></td>
                                 <td>
@@ -76,8 +98,10 @@
             <div class="form-group">
                 <input type="text" class="form-control" id="title" name="title" placeholder="الثابت">
             </div>
+            </div>
+            <div class=" col-lg-12 ">
             <div class="form-group">
-                <select name="menu_id" id="menu_id" class="form-control" >
+                <select name="parent_id" id="parent_id" class="form-control select2" style="width: 100%">
                     <!--<option value="">---اختر التعريف الرئيسي---</option>-->
                     <?php $rows=$param['rows'];
                     foreach($rows as $r) : ?>

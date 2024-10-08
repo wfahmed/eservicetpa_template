@@ -165,8 +165,7 @@ class Base_Model extends CI_Model
             $this->db->group_by($group_by);
 
         $results = $this->db->get();
-//    var_dump($this->db->error());
-//     echo ($this->db->last_query());
+
 // echo $this->db->last_query();
         if ($results !== FALSE && $results->num_rows() > 0) {
 
@@ -175,7 +174,37 @@ class Base_Model extends CI_Model
             return null;
         }
     }
+    public function count_with_join($table, $joins, $where = '')
+    {
+        $this->db->from($table);
+        foreach ($joins as $join) {
+            $this->db->join($join['table_name'], $join['condition'], 'left');
+        }
+        if ($where != '') {
+            $this->db->where($where);
+        }
+        return $this->db->count_all_results();
+    }
 
+    public function get_with_joins($select, $table, $joins, $where = '', $order_by = '', $limit = null, $offset = null)
+    {
+        $this->db->select($select);
+        $this->db->from($table);
+        foreach ($joins as $join) {
+            $this->db->join($join['table_name'], $join['condition'], 'left');
+        }
+        if ($where != '') {
+            $this->db->where($where);
+        }
+        if ($order_by != '') {
+            $this->db->order_by($order_by);
+        }
+        if ($limit !== null) {
+            $this->db->limit($limit, $offset);
+        }
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 
     ////////////////////////////tree//////////////////////////
     function get_hierarchical_paths()
@@ -187,7 +216,7 @@ title,
 parent_id,
 title AS path,         
         0 AS level           
-    FROM Constants
+    FROM constants
     WHERE parent_id IS NULL 
     
     UNION ALL
@@ -198,7 +227,7 @@ title AS path,
         c.parent_id, 
         CONCAT(ct.path, ' > ', c.title) AS path, 
 ct.level + 1 AS level                 
-FROM Constants c
+FROM constants c
 INNER JOIN ConstantTree ct ON c.parent_id = ct.id
 )
 SELECT

@@ -31,9 +31,25 @@ defined('FILE_WRITE_MODE') OR define('FILE_WRITE_MODE', 0666);
 defined('DIR_READ_MODE')   OR define('DIR_READ_MODE', 0755);
 defined('DIR_WRITE_MODE')  OR define('DIR_WRITE_MODE', 0755);
 /********for brogram********/
+define('CHILD_AGE', 19);
+define('GUARANTEE_SUB', 200);
+define('CURRENCY', 202);
+define('BENEFIT', 206);
+define('MOTHER', 50);
+define('NEED', 167);
+define('HOBBIES', 146);
+define('WIFE', 142);
+define('FAMILY_HEADER', 141);
+define('MALE', 1);
+define('FEMALE', 2);
+define('REFUGEE', 1);
+define('CITIZEN', 2);
 define('PARENT_STATUS', 4);
 define('DEATH_REASON', 12);
 define('MARETAL_STATUS', 8);
+define('LIVE', 7);
+define('MARRIED', 14);
+define('DIVORCED', 16);
 define('NATURAL_WORK', 19);
 define('DWELLING_NATURE', 25);
 define('CURRENT_RESIDENCE', 29);
@@ -43,11 +59,15 @@ define('VALLEY_SIDE', 46);
 define('RELATION', 49);
 define('EDUCATION', 55);
 define('HEALTH', 94);
+define('HEALTH_REPORT', 89);
+define('EDU_REPORT', 90);
 define('ATTACH', 83);
 define('DISABILITY_STATUS', 99);
-define('RELIEF', 105);
+define('RELIEF', 105);//for project and orphan
 define('SPONSORSHIP', 109);
 define('CONTACT_TYPE', 115);
+define('SUPPORTING_BODIES', 119);//for project
+define('TARGET_GROUPS', 121);//for project
 
 /*
 |--------------------------------------------------------------------------

@@ -70,10 +70,34 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'default';
+$active_group = 'local';
+//$active_group = 'default';
+//$active_group = 'oracle';
 $query_builder = TRUE;
 
 $db['default'] = array(
+    'dsn'	=> '',
+    'hostname' => 'localhost',
+    'username' => 'paltsd',
+    'password' => 'Ea2gK35cQVzGR',
+    'database' => 'paltsd_eservice',
+    'dbdriver' => 'mysqli',
+    'dbprefix' => '',
+    'pconnect' => FALSE,
+    'db_debug' => (ENVIRONMENT !== 'production'),
+    'cache_on' => FALSE,
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'encrypt' => FALSE,
+    'compress' => FALSE,
+    'stricton' => FALSE,
+    'failover' => array(),
+    'save_queries' => TRUE
+);
+
+$db['local'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
@@ -94,3 +118,51 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+$db['mosaaid'] = array(
+    'dsn'      => '',
+    'hostname' => 'mosaaid.egaza.ps',
+    'username' => 'mosaaidegaza',
+    'password' => 'BQvGIe1_J9$5',
+    'database' => 'mosaaidegaza_aid',
+    'dbdriver' => 'mysqli',                      // Use lowercase `dbdriver`
+    'dbprefix' => '',
+    'pconnect' => false,
+    'db_debug' => (ENVIRONMENT !== 'production'),
+    'cache_on' => false,
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'encrypt'  => false,
+    'compress' => false,
+    'stricton' => false,
+    'failover' => array(),
+    'port'     => 3306,                          // Keep the port as 3306 (default for MySQL)
+    'save_queries' => true
+);
+
+$db['oracle'] = array(
+    'dsn'   => '',
+    'hostname' => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=37.60.229.54)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=govdata)))',
+    'username' => 'emmosa',
+    'password' => 'emmosa#2024',
+    'database' => '', // Oracle SID or service name
+    'dbdriver' => 'oci8', // This should be set to oci8 for Oracle
+    'dbprefix' => '',
+    'pconnect' => FALSE,
+    'db_debug' => (ENVIRONMENT !== 'production'),
+    'cache_on' => FALSE,
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'encrypt'  => FALSE,
+    'compress' => FALSE,
+    'stricton' => FALSE,
+    'failover' => array(),
+    'save_queries' => TRUE
+);
+
+
+

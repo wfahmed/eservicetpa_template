@@ -23,7 +23,7 @@ class Menu extends MY_Controller {
                       'condition' => 'user_menu.updated_by = useru.id'
                   ),
               );
-        $datap = $this->Base_model->get_with_join('user_menu.*,userc.name as cname,useru.name as update_name', 'user_menu', $join_array, '  user_menu.deleted_by  is  null ', 'user_menu.id asc');
+        $datap = $this->Base_model->get_with_join('user_menu.*,userc.full_name as cname,useru.full_name as update_name', 'user_menu', $join_array, '  user_menu.deleted_by  is  null ', 'user_menu.id asc');
 
         $data['param']['menus'] =$datap;
         $data['withParam']='y';
@@ -33,6 +33,7 @@ class Menu extends MY_Controller {
     // add menu
     public function addmenu($title='سطح المكتب')
     {
+
         $data['title'] = 'ادارة القائمة';
 
         $this->form_validation->set_rules('menu', 'Menu_EN', 'required', ['required' => 'حقل واجب الادخال!' ]);
@@ -166,6 +167,7 @@ class Menu extends MY_Controller {
     // add sub menu
     public function addsubmenu()
     {
+        //var_dump($_POST);exit();
         $data['title'] = 'Submenu Management';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['menu'] = $this->db->get('user_menu')->result_array();

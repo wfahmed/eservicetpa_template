@@ -12,10 +12,19 @@
                             <div class="p-5">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4"><?= $title; ?></h1>
-                                    <?= $this->session->flashdata('message'); ?>
+                                   <div id="msg" class="alert alert-danger " hidden></div>
+                                        <?php
+                                        if ($this->session->flashdata('message')): ?>
+                                            <?php echo $this->session->flashdata('message'); ?>
+                                        <?php endif; ?>
                                 </div>
-                                <form class="user" method="post" action="<?= base_url('auth'); ?>">
-                                    <div class="form-group">
+                                <?php
+                                $attributes=array('role'=>'form','id' => 'login_user');
+                                echo form_open('auth/login_user',$attributes);
+                                ?>
+                              <!-- <form id="login_user" class="user" method="post" action="<?/*= base_url('auth'); */?>">-->
+
+                                <div class="form-group">
                                         <input type="text" class="form-control form-control-user" id="user_name" name="user_name" placeholder="أدخل اسم المستخدم"
                                         value="<?= set_value('user_name'); ?>">
                                         <?= form_error('user_name', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -28,10 +37,8 @@
                                         سجل الدخول
                                     </button>
                                 </form>
+                                <?php //echo form_close(); ?>
                                 <hr>
-                                <div class="text-center">
-                                    <a class="small" href="<?= base_url('auth/forgotpassword'); ?>">هل نسيت كلمة المرور؟</a>
-                                </div>
                                 <div class="text-center">
                                     <a class="small" href="<?= site_url('auth/registration'); ?>">تسجيل حساب جديد!</a>
                                 </div>

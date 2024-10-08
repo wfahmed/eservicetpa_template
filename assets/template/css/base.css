@@ -1,0 +1,64 @@
+.btn-style {
+    display: inline-block;
+    padding: 8px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    font-family: "Times New Roman";
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-style:hover {
+    background-color: #0056b3; /* Darker shade for hover */
+    color: white;
+    text-decoration: none;
+}
+.form-footer {
+    padding: 15px;                  /* Padding around the footer */
+    text-align: right;              /* Align buttons to the right */
+    background-color: #f1f1f1;      /* Light background color */
+    border-top: 1px solid #ccc;     /* Thin border to separate from form */
+    margin-top: 20px;               /* Space above the footer */
+    display: flex;
+    justify-content:center!important;
+}
+
+.form-footer .btn {
+    margin-left: 10px;              /* Space between buttons */
+}
+
+.form-footer .btn-success {
+    background-color: #1cc88a;      /* Primary button color */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-footer .btn-success:hover {
+    background-color: #4fa989;      /* Darker blue on hover */
+}
+
+.form-footer .btn-secondary {
+    background-color: #6c757d;      /* Secondary button color */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    justify-content:center!important;
+}
+
+.form-footer .btn-secondary:hover {
+    background-color: #5a6268;      /* Darker gray on hover */
+}
+
+.error-message-custom {
+    color: red;
+    font-size: 14px;
+    display: none; /* Hidden by default */
+}

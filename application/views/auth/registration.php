@@ -9,8 +9,15 @@
                   <div class="p-5">
                     <div class="text-center">
                       <h1 class="h4 text-gray-900 mb-4"><?= $title; ?></h1>
+                        <?php if (validation_errors()) : ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?= validation_errors(); ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <form class="user" method="post" action="<?= base_url('auth/registration'); ?>">
+                        <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
+
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <input type="text" class="form-control form-control-user" id="fname" name="fname" placeholder="الاسم الاول">
@@ -36,11 +43,6 @@
                         value="<?= set_value('user_name'); ?>">
                         <?= form_error('user_name', '<small class="text-danger pl-3">', '</small>'); ?>
                       </div>
-                      <div class="form-group">
-                        <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="البريد الالكتروني"
-                        value="<?= set_value('email'); ?>">
-                        <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
-                      </div>
                       <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                           <input type="password" class="form-control form-control-user" id="password1" name="password1" placeholder="كلمة الكرور">
@@ -55,9 +57,6 @@
                       </button>
                     </form>
                     <hr>
-                    <div class="text-center">
-                      <a class="small" href="<?= base_url('auth/forgotpassword'); ?>">هل نسيت كلمة المرور؟</a>
-                    </div>
                     <div class="text-center">
                       <a class="small" href="<?= site_url('auth'); ?>">لديك حساب بالفعل؟ سجل الدخول الآن!</a>
                     </div>

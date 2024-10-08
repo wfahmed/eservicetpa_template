@@ -11,7 +11,7 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800" style="font-family: 'Simplified Arabic';font-weight: bolder"><?= $title; ?></h1>
 
-    <div class="col-md-8 mb-3">
+    <div class="card shadow h-100 py-2">
         <div class="card shadow h-100 py-2">
             <div class="card-body">
                 <?= form_open_multipart('user/edit'); ?>
@@ -30,7 +30,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-sm-2 col-form-label">الإسم الرباعي</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="name" value="<?= $user['name']; ?>" readonly>
+                            <input type="text" class="form-control" id="name" name="name" value="<?= $user['full_name']; ?>" readonly>
                             <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                     </div>

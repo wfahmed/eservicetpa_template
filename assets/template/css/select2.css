@@ -1,0 +1,37 @@
+.select2-container--default .select2-selection--single {
+    height: calc(2.25rem + 2px); /* Matches Bootstrap form-control height */
+    border: 1px solid #ced4da; /* Matches Bootstrap form-control border */
+    border-radius: .25rem; /* Matches Bootstrap form-control border-radius */
+    padding: .375rem .75rem; /* Matches Bootstrap form-control padding */
+    font-size: 1rem; /* Matches Bootstrap form-control font size */
+    display: flex;
+    align-items: center; /* Vertical centering */
+    justify-content: center; /* Horizontal centering */
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: calc(2.25rem); /* Ensures vertical alignment */
+
+    text-align: center; /* Center the text horizontally */
+}
+
+.select2-container .select2-selection--single .select2-selection__arrow {
+    height: calc(2.25rem); /* Matches the arrow height */
+}
+
+.select2-container--default .select2-selection--multiple {
+    min-height: calc(2.25rem + 2px); /* Matches Bootstrap form-control multiple select */
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    padding: 0;
+    line-height: normal; /* Proper text alignment */
+}
+/* Center the text inside the dropdown options */
+.select2-container .select2-results__option {
+    text-align: center; /* Horizontal centering */
+}

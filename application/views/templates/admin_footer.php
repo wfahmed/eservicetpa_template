@@ -1,8 +1,10 @@
+<script>var base_url = "<?= base_url(); ?>";</script>
+
 <!-- Footer -->
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
       <div class="copyright text-center my-auto">
-        <span>Copyright &copy; <?= date('Y'); ?> المنظومة الإلكترونية</span>
+          <span> © <?= date('Y'); ?>&nbsp;&nbsp;المنظومة الإلكترونية  | جمعية فلسطين الغد &nbsp;&nbsp; </span>
       </div>
     </div>
 </footer>
@@ -39,26 +41,36 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
-  <script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
+<script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
+<script src="<?= base_url('assets/'); ?>vendor/datepicker/jquery-ui.min.js"></script>
+<script src="<?= base_url('assets/'); ?>vendor/bootstrap/dist/js/popper.min.js"></script>
+<script src="<?= base_url('assets/'); ?>vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Load jQuery, Popper.js, and Bootstrap JS from CDN -->
 
-<script src="<?= base_url('assets/'); ?>template/css/datepicker/jquery-ui.min.js"></script>
-  <script src="<?= base_url('assets/'); ?>vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
   <script src="<?= base_url('assets/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
+  <script src="<?= base_url('assets/'); ?>template/js/sb-admin-2.min.js"></script>
+  <script src="<?= base_url('assets/'); ?>template/js/moment.min.js"></script>
+  <script src="<?= base_url('assets/'); ?>template/js/daterangepicker.min.js"></script>
 
   <!-- Page level plugins -->
   <script src="<?= base_url('assets/'); ?>vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="<?= base_url('assets/'); ?>js/demo/datatables-demo.js"></script>
+
+<script src="<?= base_url('assets/'); ?>template/js/select2.min.js"></script>
 <script src="<?= base_url('assets/'); ?>template/js/sweet_alert.min.js"></script>
-<!--<script src="<?/*= base_url('assets/'); */?>template/css/datepicker/bootstrap.min.js"></script>
-<script src="<?/*= base_url('assets/'); */?>template/css/datepicker/bootstrap-datepicker.min.js"></script>-->
+<script src="<?= base_url('assets/'); ?>template/js/axios.min.js"></script>
+<script src="<?= base_url('assets/'); ?>template/js/main.js"></script>
+
+<!--<script src="<?/*= base_url('assets/'); */?>custom/maximize_header.js"></script>-->
+<!--<script src="<?/*= base_url('assets/'); */?>custom/tag_input.js"></script>-->
+<!--<script src="<?/*= base_url('assets/'); */?>template/css/datepicker/bootstrap-datepicker.min.js"></script>-->
+
 <?php if (isset($param['js_file'])):
     $rows= $param['js_file'];
     //var_dump($rows);
@@ -67,47 +79,6 @@
     <?php endforeach; ?>
 
 <?php endif; ?>
-<script>
-
-// sustom upload file
-$('.custom-file-input').on('change', function() {
-    let fileName = $(this).val().split('\\').pop();
-    $(this).next('.custom-file-label').addClass("selected").html(fileName);
-});
-
-// ajax role
-$('.form-check-input').on('click', function() {
-    const menuId = $(this).data('menu');
-    const roleId = $(this).data('role');
-if(roleId) {
-    $.ajax({
-        url: "<?= base_url('admin/changeaccess'); ?>",
-        type: 'post',
-        data: {
-            menuId: menuId,
-            roleId: roleId
-        },
-        success: function () {
-            document.location.href = "<?= base_url('admin/roleaccess/'); ?>" + roleId;
-        }
-    });
-}
-});
-$(document).ready(function() {
-$(function () {
-    var date = new Date();
-    date.setDate(date.getDate());
-   // console.log('in datepicker'+date.getDate());
-    $(".datepicker").datepicker({
-       // startDate: date,
-        format: 'dd-mm-YYYY',
-        autoclose: true,
-        todayHighlight: true,
-    });
-});
-});
-</script>
-
 </body>
 
 </html>

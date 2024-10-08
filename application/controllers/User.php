@@ -20,21 +20,22 @@ class User extends MY_Controller {
     }
 
     // edit profile
-    public function edit()
+    public function edit($id=NULL)
     {
+        if($id==NULL)
+            $id=$this->session->userdata('id');
         $data['title'] = 'تعديل الملف الشخصي';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('user', ['id' => $id])->row_array();
 
         $this->form_validation->set_rules('name', 'Full name', 'required', [
             'required' => 'Full name is required!'
         ]);
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('templates/admin_header', $data);
-            $this->load->view('templates/admin_sidebar');
-            $this->load->view('templates/admin_topbar', $data);
-            $this->load->view('user/edit', $data);
-            $this->load->view('templates/admin_footer');
+            $data['viewName']='user/edit';
+            $data['withParam']='y';
+
+            parent::index($data);
         } else {
             $name = $this->input->post('name');
             $email = $this->input->post('email');
@@ -62,7 +63,7 @@ class User extends MY_Controller {
                 }
             }
 
-            $this->db->set('name', $name);
+            $this->db->set('full_name', $name);
             $this->db->where('email', $email);
             $this->db->update('user');
 
@@ -139,4 +140,11 @@ class User extends MY_Controller {
         redirect('auth');
     }
 
+    // Calculate age function
+    function calculate_age($dob) {
+        $dob = new DateTime($dob);
+        $today = new DateTime(date("Y-m-d"));
+        $age = $today->diff($dob)->y;
+        return $age;
+    }
 }

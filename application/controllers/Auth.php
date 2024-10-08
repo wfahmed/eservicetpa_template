@@ -6,14 +6,21 @@ class Auth extends CI_Controller {
     {
         parent::__construct();
         $this->load->library('form_validation');
-
+        $this->load->helper('url');
+        $this->load->helper('form');
+        $this->load->library('session');
+        $this->load->model('UserModel');
+        $this->load->helper('security');
     }
     // login
     public function index()
     {
 
         if ($this->session->userdata('user_name')) {
-           // var_dump('in auth new '.$this->session->userdata('id'));die();
+           //  var_dump($this->session->userdata('role_id'));die();
+            if($this->session->userdata('role_id')==1)
+                redirect('admin');
+            else
             redirect('User');
         }
 
@@ -24,7 +31,11 @@ class Auth extends CI_Controller {
             'required' => 'حقل واجب الإدخال!'
         ]);
 
-        if ($this->form_validation->run() == false) {
+       if ($this->form_validation->run() == false) {
+            $data['csrf'] = array(
+                'name' => $this->security->get_csrf_token_name(),
+                'hash' => $this->security->get_csrf_hash()
+            );
             $data['title'] = 'شاشة تسجيل الدخول';
             $this->load->view('templates/auth_header', $data);
             $this->load->view('auth/login', $data);
@@ -36,59 +47,117 @@ class Auth extends CI_Controller {
         }
     }
 
-    // valid login sukses
     private function _login()
+    {
+        $username = $this->input->post('user_name');
+        $password = $this->input->post('password');
+
+        $user = $this->db->get_where('user', ['user_name' => $username])->row_array();
+
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
+                $data = [
+                    'email' => $user['email'],
+                    'identity' => $user['identity'],
+                    'user_name' => $user['user_name'],
+                    'role_id' => $user['role_id'],
+                    'id' => $user['id'],
+                ];
+                $this->session->set_userdata($data);
+                switch ($user['role_id']) {
+                    case 1:
+                        redirect('admin');
+                        break;
+                    case 2:
+                        redirect('profile');
+                        break;
+                }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+          كلمة مرور خاطئة!</div>');
+               redirect('auth');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">
+      اسم المستخدم غير موجود</div>');
+           redirect('auth');
+        }
+
+        if ($user) {
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">خطأ في المستخدم وكلمة المرور!</div>');
+           redirect('auth');
+        }
+    }
+
+    // valid login sukses
+    public function login_user()
     {
         $user_name = $this->input->post('user_name');
         $password = $this->input->post('password');
 
-        $user = $this->db->get_where('user', ['user_name' => $user_name])->row_array();
+        $csrf_token_name = $this->security->get_csrf_token_name();
+        $csrf_hash = $this->security->get_csrf_hash(); // Token stored in session
 
-        // jika user ada
-        if ($user) {
-           // var_dump($user);die();
-            // jika user nya aktif
-            if ($user['is_active'] == '1') {
+        // Get token from request headers
+        $headers = $this->input->request_headers();
+        $csrf_token_value = isset($headers[$csrf_token_name]) ? $headers[$csrf_token_name] : null;
 
-                // cek passwordnya
-                if (password_verify($password, $user['password'])) {
+        // Debug output
+      /*  echo '<pre>';
+        echo 'Token from POST data: ' . htmlspecialchars($csrf_token_value) . '<br>';
+        echo 'Expected CSRF hash: ' . htmlspecialchars($csrf_hash) . '<br>';
+        echo $password.'</pre>';*/
 
-                    $data = [
-                        'email' => $user['email'],
-                        'identity' => $user['identity'],
-                        'user_name' => $user['user_name'],
-                        'role_id' => $user['role_id'],
-                        'id' => $user['id'],
-                    ];
-
-                    $this->session->set_userdata($data);
-                    // cek role
-
-                    if ($user['role_id'] == "1") {
-                       // var_dump($user['role_id']);die();
-                        redirect('admin');
-                    } else {
-                        var_dump($user['role_id']);die();
-                        redirect('user');
-                    }
-                }else{
-                    // jika gagal
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                    كلمة سر خاطئة!</div>');
-                    redirect('auth');
-                }
-            } else {
-                // tidak aktif
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                لم يتم التحديث!</div>');
-                redirect('auth');
-            }   
-        } else {
-            // tidak ada user dengan email itu
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            الحساب موجود مسبقا!</div>');
-            redirect('auth');
+      if ($csrf_token_value !== $csrf_hash) {
+            $this->session->set_flashdata('error', 'Invalid CSRF token');
+          $response = [
+              'status' => 'error',
+              'message' => 'Invalid CSRF token'
+          ];
+          echo json_encode($response);
+            return;
         }
+
+        $userCheck = $this->UserModel->verify_user($user_name, $password);
+      switch($userCheck){
+          case 0;
+              $response = [
+                  'status' => 'auth',
+                  'message' => 'الحساب او كلمة المرور خاطئة !'
+              ];
+              echo json_encode($response);
+          break;
+          case 1 :
+              $response = [
+                  'status' => 'auth',
+                  'message' => 'كلمة المرور  خاطئة !'
+              ];
+              echo json_encode($response);
+              break;
+          case 2:
+              $user = $this->db->get_where('user', ['user_name' => $user_name])->row_array();
+              $data = [
+                  'email' => $user['email'],
+                  'identity' => $user['identity'],
+                  'user_name' => $user['user_name'],
+                  'role_id' => $user['role_id'],
+                  'id' => $user['id'],
+              ];
+              $this->session->set_userdata($data);
+              // cek role
+              if ($user['is_emp'] == "1") {
+                  $status='admin';
+              } else {
+                  $status='profile';
+              }
+              $response = [
+                  'status' => $status,
+                  'message' => ' '
+              ];
+              echo json_encode($response);
+              break;
+      }
     }
 
     // registrasi
@@ -97,7 +166,6 @@ class Auth extends CI_Controller {
         if ($this->session->userdata('user_name')) {
             redirect('user');
         }
-        
         $this->form_validation->set_rules('fname', 'fname', 'required|trim', [
             'required' => 'حقل واجب الإدخال!'
         ]);
@@ -127,21 +195,22 @@ class Auth extends CI_Controller {
             $this->load->view('templates/auth_header', $data);
             $this->load->view('auth/registration', $data);
             $this->load->view('templates/auth_footer');
-        } else {
+        }
+        else
+        {
             $user_name= $this->input->post('user_name', true);
-            $email= $this->input->post('email', true);
+            $password = $this->input->post('password');
             $fname=$this->input->post('fname', true);
             $sname=$this->input->post('sname', true);
             $tname=$this->input->post('tname', true);
             $lname=$this->input->post('lname', true);
-            $name=$fname.' '.$sname.' '.$tname.' '.$lname;
+            $full_name=$fname.' '.$sname.' '.$tname.' '.$lname;
             $data = [
                 'fname' => htmlspecialchars($fname),
                 'sname' => htmlspecialchars($sname),
                 'tname' => htmlspecialchars($tname),
                 'lname' => htmlspecialchars($lname),
-                'name' => $name,
-                'email' => htmlspecialchars($email),
+                'full_name' => $full_name,
                 'user_name' => htmlspecialchars($user_name),
                 'image' => 'default.jpg',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
@@ -149,120 +218,33 @@ class Auth extends CI_Controller {
                 'is_active' => 1,//0,
                 'date_created' => date("d-m-Y"),//time()
             ];
-
-            // token
-            $token = base64_encode(random_bytes(32));
-            $user_token = [
-                'email' => $email,
-                'token' => $token,
-                'date_created' => time()
-            ];
-
-            $this->db->insert('user', $data);
-            $this->db->insert('user_token', $user_token);
-
-        /*    $this->_sendemail($token, 'verify');
-
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            برجاء فحص الاميل لتنشيط الحساب!</div>');*/
-            redirect('auth');
-        }
-    }
-
-    // _sendemail
-    private function _sendemail($token, $type)
-    {
-        $config = array();
-        $config['protocol']  = 'smtp';
-        $config['smtp_host'] = 'ssl://smtp.gmail.com';
-        $config['smtp_user'] = 'wafa3ahmed@gmail.com';
-        $config['smtp_pass'] = 'java&oracle81';
-        $config['smtp_port'] = 465;
-        $config['mailtype']  = 'html';
-        $config['charset']   = 'utf-8';
-
-        $this->load->library('email');
-        $this->load->initialize($config);
-        $this->email->initialize($config);
-        $this->email->set_newline("\r\n");
-
-        $this->email->from('wafa3ahmed@gmail.com', 'المنظومة الإلكترونية');
-        $this->email->to($this->input->post('email'));
-
-        if ($type == 'verify') {
-            $this->email->subject('Account Verification');
-            $this->email->message('Dear User, Please click the URL for your account verification : <a href="' . base_url() .'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) .'">Activate</a>');
-        } else if ($type == 'forgot') {
-            $this->email->subject('Reset password');
-            $this->email->message('Click this address to reset your password: <a href="' . base_url() .'auth/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) .'">Reset password</a>');
-        }
-
-        if ($this->email->send()) {
-            return true; 
-        } else {
-            echo $this->email->print_debugger();
-            die;
-        }
-    }
-
-    // verify
-    public function verify()
-    {
-        $email = $this->input->get('email');
-        $token = $this->input->get('token');
-
-        $user = $this->db->get_where('user', ['email' => $email])->row_array();
-
-        if ($user) {
-            // jika email benar
-            $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
-
-            if ($user_token) {
-                // jika token benar
-
-                if (time() - $user_token['date_created'] < (60*60*24)) {
-                    // token belum expired
-                    $this->db->set('is_active', 1);
-                    $this->db->where('email', $email);
-                    $this->db->update('user');
-                    $this->db->delete('user_token', ['email' => $email]);
-
-                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-                    '. $email .' Activated! Please login.</div>');
-                    redirect('auth');
+           $result= $this->db->insert('user', $data);
+          //  var_dump($result);die();
+            $userCheck = $this->UserModel->verify_user($user_name, $password);
+            if (isset($userCheck)) {
+                $user = $this->db->get_where('user', ['user_name' => $user_name])->row_array();
+                $data = [
+                    'identity' => $user['identity'],
+                    'user_name' => $user['user_name'],
+                    'role_id' => $user['role_id'],
+                    'id' => $user['id'],
+                ];
+                $this->session->set_userdata($data);
+                // cek role
+                if ($user['is_emp'] == "1") {
+                    redirect('admin');
                 } else {
-                    // token expired
-                    $this->db->delete('user', ['email' => $email]);
-                    $this->db->delete('user_token', ['email' => $email]);
-
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                    فشل تنشيط الحساب لانتهاء كود التحقق</div>');
-                    redirect('auth');
+                    redirect('user');
                 }
-
-            } else {
-                // token salah
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                فشل تنشيط الحساب</div>');
-                redirect('auth');
             }
 
-        } else {
-            // email salah
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            فشل تنشيط الحساب الايميل غير متوفر</div>');
-            redirect('auth');
         }
     }
 
     // logout
     public function logout()
     {
-        $this->session->unset_userdata('email');
-        $this->session->unset_userdata('role_id');
-        $this->session->unset_userdata('identity');
-        $this->session->unset_userdata('user_name');
-
+        $this->session->sess_destroy();
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
         تم تسجيل الخروج بنجاح!</div>');
         redirect('auth');
@@ -272,47 +254,6 @@ class Auth extends CI_Controller {
     public function blocked()
     {
         $this->load->view('auth/blocked');
-    }
-
-    // forgot password
-    public function forgotpassword()
-    {
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [
-            'required' => 'Email must be filled!',
-            'valid_email' => 'Invalid email!'
-        ]);
-
-        if ($this->form_validation->run() == false) {
-            $data['title'] = 'Forgot Password';
-            $this->load->view('templates/auth_header', $data);
-            $this->load->view('auth/forgot_password', $data);
-            $this->load->view('templates/auth_footer');
-        } else {
-            $email = $this->input->post('email');
-            $user = $this->db->get_where('user', ['email' => $email, 'is_active' => 1])->row_array();
-
-            if ($user) {
-                // jika ada user buat token
-                $token = base64_encode(random_bytes(32));
-                $user_token = [
-                    'email' => $email,
-                    'token' => $token,
-                    'date_created' => time()
-                ];
-
-                $this->db->insert('user_token', $user_token);
-                $this->_sendemail($token, 'forgot');
-                
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-                Please check your email to reset your password!</div>');
-                redirect('auth/forgotpassword');
-            } else {
-                // email tidak terdaftar
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                Email is not registered or not yet activated!</div>');
-                redirect('auth/forgotpassword');
-            }
-        }
     }
 
     // reset password

@@ -3,10 +3,12 @@
 
         <!-- Sidebar - Brand -->
 
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <a class="sidebar-brand d-flex align-items-right justify-content-center" href="<?=base_url()?>">
             <div class="sidebar-brand-icon">
-                <img width="100%" height="95%" src="<?= base_url().'/assets/img/logo.png'?>">
+            <img width="100%" height="100%" src="<?= base_url().'/assets/img/right-logo.png'?>">
             </div>
+            <div class="sidebar-brand-text d-flex justify-content-center align-items-center mx-2" >الخدمات الإلكترونية</div>
+<div class="menu-toggler sidebar-toggler"></div>
         </a>
 
           <!-- Divider -->
@@ -15,7 +17,7 @@
         <!-- QUERY user_menu JOIN user_access_menu -->
         <?php
         $role_id = $this->session->userdata['role_id'];
-        $queryMenu =    "SELECT DISTINCT `user_menu`.`id`,`menu_icon`, `menu`,`ar_menu` FROM `user_menu` JOIN `user_access_menu`
+        $queryMenu =    "SELECT DISTINCT `user_access_menu`.`menu_id`,`user_menu`.`id`,`menu_icon`, `menu_url`, `menu`,`ar_menu` FROM `user_menu` JOIN `user_access_menu`
                         ON `user_menu`.`id` = `user_access_menu`.`menu_id`
                         WHERE  `user_menu`.`display` =1 and `user_access_menu`.`role_id` = $role_id 
                         ORDER BY `user_access_menu`.`menu_id` ASC";
@@ -25,7 +27,7 @@
         <!-- Looping Menu -->
         <?php foreach($menu as $m) : ?>
             <div class="sidebar-heading">
-                <a class="" href="javascript:;" style="color:white;padding-right: 0rem;">
+                <a class="" href="<?= base_url($m['menu_url']); ?>" style="color:white;padding-right: 0rem;">
                     <span> <?= $m['ar_menu']; ?></span></a>
             </div>
 
@@ -69,7 +71,9 @@
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            <button class="rounded-circle border-0" id="sidebarToggle">
+                <i class="fa fa-solid fa-bars"></i>
+            </button>
         </div>
 
     </ul>

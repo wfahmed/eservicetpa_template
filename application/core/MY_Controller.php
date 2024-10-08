@@ -15,7 +15,7 @@ class MY_Controller extends CI_Controller {
     function __construct(){
 
         parent::__construct();
-
+        date_default_timezone_set("Asia/Gaza");
         $this->user_os        = $this->getOS();
         $this->user_browser   = $this->getBrowser();
         $this->user_ip        = $this->get_client_ip();
@@ -24,6 +24,7 @@ class MY_Controller extends CI_Controller {
 
         $this->load->library('template');
         $this->load->library('form_validation');
+        $this->load->library('encryption');
         $this->load->model(array('Base_model', 'base_model'));
 
 
@@ -42,6 +43,56 @@ class MY_Controller extends CI_Controller {
         is_logged_in();
     }
 
+    public function index($dataAr)
+    {
+        $this->data = [
+            'title' => $dataAr['title'],
+            'sub_title' =>isset ($dataAr['sub_title'])?$dataAr['sub_title'] :'',
+            'user' => $this->db->get_where('user', ['user_name' => $this->session->userdata('user_name')])->row_array(),
+            'user_role' => $this->db->get_where('user_role', ['deleted_by'=> NULL])->num_rows(),
+            'user_member' => $this->db->get_where('user', ['role_id' => 2])->num_rows(),
+            'menu' => $this->db->get_where('user_menu', ['deleted_by'=> NULL])->num_rows(),
+            'sub_menu' => $this->db->get('user_sub_menu')->num_rows(),
+            'report' => $this->db->get('user_report')->num_rows(),
+        ];
+        if(isset($dataAr['param'])){
+            $this->data['param'] = $dataAr['param'];
+
+        }else{
+            $this->data['param'] = '';
+
+        }
+
+        if(isset($dataAr['for_print'])){
+            $this->load->view('templates/admin_header', $this->data);
+            if($dataAr['for_print']=='y'){
+                $this->load->view($dataAr['viewName'], $this->data);
+
+            }else{
+                $this->load->view($dataAr['viewName']);
+
+            }
+
+        }else{
+            $this->load->view('templates/admin_header', $this->data);
+            $this->load->view('templates/admin_sidebar');
+            $this->load->view('templates/admin_topbar', $this->data);
+
+            if($dataAr['withParam']=='y'){
+                $this->load->view($dataAr['viewName'], $this->data);
+
+            }else{
+                $this->load->view($dataAr['viewName']);
+
+            }
+
+            $this->load->view('templates/admin_footer');
+
+        }
+        // var_dump( $this->data);die();
+
+
+    }
 
     public  function get_client_ip() {
         $ipaddress = '';
@@ -61,6 +112,7 @@ class MY_Controller extends CI_Controller {
             $ipaddress = 'UNKNOWN';
         return $ipaddress;
     }
+
     public function getOS() {
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $os_platform  = "Unknown OS Platform";
@@ -97,6 +149,7 @@ class MY_Controller extends CI_Controller {
 
         return $os_platform;
     }
+
     public function getBrowser() {
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $browser        = "Unknown Browser";
@@ -120,57 +173,6 @@ class MY_Controller extends CI_Controller {
 
         return $browser;
     }
-
-    public function index($dataAr)
-    {
-        $this->data = [
-            'title' => $dataAr['title'],
-            'user' => $this->db->get_where('user', ['user_name' => $this->session->userdata('user_name')])->row_array(),
-            'user_role' => $this->db->get_where('user_role', ['deleted_by'=> NULL])->num_rows(),
-            'user_member' => $this->db->get_where('user', ['role_id' => 2])->num_rows(),
-            'menu' => $this->db->get_where('user_menu', ['deleted_by'=> NULL])->num_rows(),
-            'sub_menu' => $this->db->get('user_sub_menu')->num_rows(),
-            'report' => $this->db->get('user_report')->num_rows(),
-        ];
-        if(isset($dataAr['param'])){
-            $this->data['param'] = $dataAr['param'];
-
-        }else{
-            $this->data['param'] = '';
-
-        }
-      /*  if(isset($dataAr['role'])){
-            $this->data['role'] = $dataAr['role'];
-
-        }else{
-            $this->data['role'] = $this->db->get('user_role')->result_array();
-
-        }*/
-      //  var_dump( $this->data['role']);
-
-       /*  if(isset($dataAr['details']))
-            $this->data['details']= $dataAr['details'];
-        else
-            $this->data['details']= '';
-        var_dump( $this->data['details']);*/
-
-       // var_dump( $this->data);die();
-        $this->load->view('templates/admin_header', $this->data);
-        $this->load->view('templates/admin_sidebar');
-        $this->load->view('templates/admin_topbar', $this->data);
-
-        if($dataAr['withParam']=='y'){
-            $this->load->view($dataAr['viewName'], $this->data);
-
-        }else{
-            $this->load->view($dataAr['viewName']);
-
-        }
-
-        $this->load->view('templates/admin_footer');
-
-    }
-
 
 
 

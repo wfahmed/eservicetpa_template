@@ -1,3 +1,11 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $('#parent_id').select2({
+            placeholder: 'Select an option',
+            allowClear: true
+        });
+    });
+</script>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -23,7 +31,7 @@ $rows=$this->data['param']['rows'];
                     <input type="text" class="form-control" id="title" name="title" placeholder="الثابت" value="<?=$param['title']?>">
                 </div>
                 <div class="form-group">
-                    <select name="menu_id" id="menu_id" class="form-control" >
+                    <select name="parent_id" id="parent_id" class="form-control select2" >
                         <option value="">---اختر التعريف الرئيسي---</option>
                         <?php ;
                         foreach($rows as $r) : ?>

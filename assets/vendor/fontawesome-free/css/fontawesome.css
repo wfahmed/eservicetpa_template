@@ -4422,11 +4422,17 @@ readers do not read off random characters that represent icons */
 .fa-wikipedia-w:before {
   content: "\f266"; }
 
+
+.fa-maximize:before {
+  content: "\f065"; }
+
+
 .fa-wind:before {
   content: "\f72e"; }
 
 .fa-window-close:before {
   content: "\f410"; }
+
 
 .fa-window-maximize:before {
   content: "\f2d0"; }
