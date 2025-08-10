@@ -5,7 +5,8 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
     <div class="row">
-        <?php if(in_array($this->session->userdata('role_id'), [1, 141])){?>
+        <?php if(in_array($this->session->userdata('role_id'), [1, 14])){?>
+
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-dark shadow h-100 py-2">
                     <div class="card-body">
