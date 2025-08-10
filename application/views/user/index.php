@@ -22,7 +22,9 @@
                             <p class="card-text"><?= $user['dob']; ?></p>
                             <p class="card-text"><?= $user['identity']; ?></p>
                             <p class="card-text">
-                            <small class="text-muted">أنت مشترك منذ  <?= date('d-m-Y' , $user['date_created']); ?></small></p>
+                                <small class="text-muted">أنت مشترك منذ  <?= date('d-m-Y' , strtotime($user['date_created'])); ?></small>
+                            </p>
+
                         </div>
                     </div>
                 </div>

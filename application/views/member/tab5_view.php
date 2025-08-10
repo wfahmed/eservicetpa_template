@@ -98,8 +98,6 @@ if(isset($param['child']))  $child=$param['child'];
         </div>
     </div>
     <div class="form-group row">
-
-
         <div class="col-md-3 d-none">
             <label for="naturalwork">طبيعة العمل</label>
             <select name="naturalwork" id="naturalwork" class="form-control" required>
@@ -130,6 +128,29 @@ if(isset($param['child']))  $child=$param['child'];
                 <label class="form-check-label" for="Citizen"> أنثى</label>
             </div>
         </div>
+
+        <div class="col-md-3   mb-3 mb-sm-0">
+            <label >بحاجة لرعاية </label>
+            <div class="form-check col-sm-12">
+                <input class="form-check-input" type="radio" name="care" id="yes" value="1" checked required
+                >
+                <label class="form-check-label" for="yes">نعم</label>
+                <input class="form-check-input" type="radio" name="care" id="no" value="0" >
+                <label class="form-check-label" for="no"> لا</label>
+            </div>
+        </div>
+
+        <div class="col-md-3" >
+            <label for="child_cat_id">تصنيف الطفل</label>
+            <select name="child_cat_id" id="child_cat_id" class="form-control selectpicker" required>
+                <option></option>
+                <?php
+                $rows=$param['CATEGORY'];
+                foreach($rows as $r) : ?>
+                    <option value="<?= $r['id']; ?>" ><?= $r['title']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
     </div>
     <div class="form-group row d-none">
         <div class="col-md-3">
@@ -139,8 +160,8 @@ if(isset($param['child']))  $child=$param['child'];
         </div>
         <div class="col-md-3">
             <label for="death_reason">سبب الوفاة</label>
-            <select name="death_reason" id="death_reason" class="form-control select2" placeholder="اختر سبب" >
-                <option>اختر سبب</option>
+            <select name="death_reason" id="death_reason" class="form-control selectpicker" data-live-search="true"  placeholder="اختر سبب" >
+                <option value="null">اختر سبب</option>
                 <?php $rows=$param['DEATH_REASON'];
                 foreach($rows as $r) : ?>
                     <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -157,8 +178,6 @@ if(isset($param['child']))  $child=$param['child'];
             <input class="form-control" type="text" id="after_death_incom" name="after_death_incom" placeholder="الدخل بعد الوفاة " value="" />
         </div>
     </div>
-
-
     <br>
     <!-- btn -->
     <div class="form-footer">
@@ -304,16 +323,47 @@ if(isset($param['child']))  $child=$param['child'];
                     <label >الجنس </label>
                     <div class="form-check col-sm-12">
                         <input class="form-check-input" type="radio" name="gender" id="male" value="1" required
-                            <?php if( $user_child_row['gender_id']=='1'){
+                            <?php if( $user_child_row['gender_id']===1){
                                 echo 'checked' ; }
                             ?> >
                         <label class="form-check-label" for="Refugee">ذكر</label>
                         <input class="form-check-input" type="radio" name="gender" id="female" value="2"
                             <?php
-                            if( $user_child_row['gender_id']=='2'){
+                            if( $user_child_row['gender_id']===2){
                                 echo 'checked' ;} ?>>
                         <label class="form-check-label" for="Citizen"> أنثى</label>
                     </div>
+                </div>
+                <div class="col-md-3   mb-3 mb-sm-0">
+                    <label >بحاجة لرعاية </label>
+                    <div class="form-check col-sm-12">
+                        <input class="form-check-input" type="radio" name="care" id="yes" value="1" checked required
+                            <?php if( $user_child_row['care']===1){
+                                echo 'checked' ; }
+                            ?>
+                        >
+                        <label class="form-check-label" for="yes">نعم</label>
+                        <input class="form-check-input" type="radio" name="care" id="no" value="0"
+                            <?php if( $user_child_row['care']===0){
+                                echo 'checked' ; }
+                            ?>
+                        >
+                        <label class="form-check-label" for="no"> لا</label>
+                    </div>
+                </div>
+
+                <div class="col-md-3" >
+                    <label for="child_cat_id">تصنيف الطفل</label>
+                    <select name="child_cat_id" id="child_cat_id" class="form-control selectpicker" required>
+                        <option></option>
+                        <?php
+                        $rows=$param['CATEGORY'];
+                        foreach($rows as $r) : ?>
+                            <option  <?php if( $user_child_row['child_cat_id']==$r['id']){
+                                echo 'selected' ; }
+                            ?> value="<?= $r['id']; ?>" ><?= $r['title']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
             </div>
 
@@ -325,8 +375,8 @@ if(isset($param['child']))  $child=$param['child'];
                 </div>
                 <div class="col-md-3">
                     <label for="death_reason">سبب الوفاة</label>
-                    <select name="death_reason" id="death_reason" class="form-control select2" >
-                        <option value="0">اختر السبب</option>
+                    <select name="death_reason" id="death_reason" class="form-control selectpicker" data-live-search="true"  >
+                        <option value="null">اختر سبب</option>
                         <?php $rows=$param['DEATH_REASON'];
                         foreach($rows as $r) : ?>
                             <option value="<?= $r['id']; ?>"<?php if($user_child_row)if($r['id']== $user_child_row['death_reason_id']){
@@ -390,7 +440,7 @@ if(isset($param['child']))  $child=$param['child'];
                             <td>
                                 <a class="badge badge-success btn-style" onclick="getChildDetails(<?=$r['uid']?>)" href="#">تعديل</a>
                                 <a class="badge badge-primary btn-style " href="<?= site_url('member/detailmember/'.$r['uid']); ?>">تفاصيل</a>
-                                <a class="badge badge-warning btn-style " href="<?= site_url('user/edit/'.$r['uid']); ?>">الصورة </a>
+                                <a class="badge badge-warning btn-style " target="_blank" href="<?= site_url('user/edit/'.$r['uid']); ?>">الصورة </a>
                                 <a class="badge  btn-style " style="background-color:#194616" href="<?= site_url('agent/index/'.$r['uid']); ?>">الوكيل</a>
                                 <a class="badge  btn-style" style="background-color:#1d5441" href="<?= site_url('cv/index/'.$r['uid']); ?>">السيرة الذاتية</a>
                                 <a class="badge badge-danger btn-style" onclick="deleteConfirm(<?=$r['uid']?>)"

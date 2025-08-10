@@ -10,8 +10,9 @@ class OracleController extends CI_Controller // Use CI_Controller instead of Con
       $oracle_db = $this->load->database('oracle', TRUE); // TRUE returns the database object for Oracle
 
 // Load MySQL database configuration
-    $mosaaid_db = $this->load->database('mosaaid', TRUE); // TRUE returns the database object for MySQL
+ //   $mosaaid_db = $this->load->database('mosaaid', TRUE); // TRUE returns the database object for MySQL
     }
+
     public function callProcedure($id )
     {
         $oracle_db = $this->load->database('oracle', TRUE);
@@ -64,17 +65,18 @@ class OracleController extends CI_Controller // Use CI_Controller instead of Con
 var_dump($results);
     }
 
-    public function callProcedure2( )
+    public function callProcedureTemp( )
     {
         $oracle_db = $this->load->database('oracle', TRUE);
         $conn = $oracle_db->conn_id; // Get the native OCI8 resource
-        $mosaaid_db = $this->load->database('mosaaid', TRUE);
-        $connM = $mosaaid_db->conn_id; // Get the native OCI8 resource
-        $sqlWives="SELECT * FROM person_wives where wife_dob ='1981-04-22' limit 10";
-        $wives = $mosaaid_db->query($sqlWives)->result_array();
-        foreach ($wives as $wife) {
-            $pw_id=$wife['pw_id'];
-            $id= $wife['wife_identity'];
+        //$mosaaid_db = $this->load->database('mosaaid', TRUE);
+        $local_db = $this->load->database('local', TRUE);
+       // $connM = $mosaaid_db->conn_id; // Get the native OCI8 resource
+        $connM = $local_db->conn_id; // Get the native OCI8 resource
+        $sqlTemp="SELECT * FROM temp_larg";
+        $temps = $local_db->query($sqlTemp)->result_array();
+        foreach ($temps as $temp) {
+            $id=$temp['id'];
             $sql = "
         DECLARE
             ID NUMBER;
@@ -114,18 +116,13 @@ var_dump($results);
             while (($row = oci_fetch_assoc($cursor)) != false) {
                 if (isset($row['FULL_NAME_AR'])) {
                     $data = [
-                        'wife_fname' => $row['CI_FIRST_ARB'],
-                        'wife_sname' => $row['CI_FATHER_ARB'],
-                        'wife_tname' => $row['CI_GRAND_FATHER_ARB'],
-                        'wife_lname' => $row['CI_FAMILY_ARB'],
-                        'wife_full_name' => $row['FULL_NAME_AR'],
-                        'wife_dob' => $row['CI_BIRTH_DT'],
-                        'wife_death_date' => $row['CI_DEAD_DT'],
+                        'full_name' =>  $row['FULL_NAME_AR'],
+                        'dob' => $row['CI_BIRTH_DT'],
                     ];
-                    $mosaaid_db->update('person_wives', $data, ['pw_id ' => $pw_id]);
-                    echo $pw_id;
+                    $local_db->update('temp_larg', $data, ['id ' => $id]);
+                    echo $id;
                 }else{
-                    echo 'no';
+                    echo 'no';exit();
                 }
             }
         }

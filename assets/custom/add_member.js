@@ -1,14 +1,25 @@
 
 
 $(document).ready(function() {
-    $('.datepicker').datepicker({
+// Datepicker for Date of Birth
+    $('#dob').datepicker({
         changeYear: true,
         changeMonth: true,
-        yearRange: "1950:2024",
+        yearRange: `1960:${new Date().getFullYear()}`, // Starts from 1960 and ends with the current year
         dateFormat: "yy-mm-dd",
-        defaultDate: new Date(1950, 0, 1),
-        minDate: new Date(1950, 0, 1),
-        maxDate: new Date(),
+        defaultDate: new Date(1960, 0, 1), // Default to January 1, 1960
+        minDate: new Date(1960, 0, 1),
+        maxDate: new Date(), // Maximum is today
+    });
+
+// Datepicker for Death Date
+    $('#death_date').datepicker({
+        changeYear: true,
+        changeMonth: true,
+        yearRange: `1960:${new Date().getFullYear()}`, // Ends with the current year
+        dateFormat: "yy-mm-dd",
+        minDate: new Date(1960, 0, 1), // Minimum is January 1, 1960
+        maxDate: new Date(), // Maximum is today
     });
 
 

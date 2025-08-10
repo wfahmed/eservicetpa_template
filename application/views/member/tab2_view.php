@@ -14,7 +14,7 @@
         <div class="form-group row">
             <div class="col-md-6">
                 <label for="contact_type">وسيلة الاتصال</label>
-                <select name="contact_type" id="contact_type" class="form-control" required >
+                <select name="contact_type" id="contact_type" class="form-control selectpicker" data-live-search="true"  required >
                     <?php $rows=$param['CONTACT_TYPE'];
                     foreach($rows as $r) : ?>
                         <option value="<?= $r['id']; ?>" data_atr="<?= $r['title']; ?>"><?= $r['title']; ?></option>

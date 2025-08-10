@@ -25,7 +25,8 @@
         <div class="form-group row">
                 <div class="col-md-3">
                 <label for="need_type_id">نوع الاحتياج</label>
-                <select name="need_type_id" id="need_type_id" class="form-control" required>
+                <select name="need_type_id" id="need_type_id" class="form-control selectpicker" required>
+                    <option></option>
                         <?php $rows=$param['NEED'];
                         foreach($rows as $r) : ?>
                             <option value="<?= $r['id']; ?>" data_atr="<?= $r['title']; ?>"><?= $r['title']; ?></option>

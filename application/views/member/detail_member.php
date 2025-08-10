@@ -7,7 +7,7 @@
     <div class="col-md-6">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><a href="<?= base_url('member/datamember/all') ?>"><i class="fas fa-arrow-right"></i> رجوع</a></h6>
+                <h6 class="m-0 font-weight-bold text-primary"><a href="javascript:history.back()"><i class="fas fa-arrow-right"></i> رجوع</a></h6>
             </div>
             <div class="card-body">
                 <div class="row no-gutters">
@@ -26,7 +26,8 @@
                                 <?php else : ?> <?= 'InActive' ?> <?php endif; ?> <br>
                             </p>
                             <p class="card-text">
-                            <small class="text-muted">أنت مشترك منذ  <?= date('d-m-Y' , $member['date_created']); ?></small></p>
+                                <?php $dateCreatedTimestamp = (int) $member['date_created'];?>
+                            <small class="text-muted">أنت مشترك منذ  <?= date('d-m-Y' , $dateCreatedTimestamp); ?></small></p>
                         </div>
                     </div>
                 </div>

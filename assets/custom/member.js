@@ -33,6 +33,16 @@ function mumAgent(id){
 
 }
 
+function initializeSelect() {
+    $('.selectpicker').selectpicker({
+        liveSearchPlaceholder: 'ابحث....',// Set a placeholder for search
+        noneSelectedText: 'اختر', // Placeholder text
+        deselectAllText: 'إلغاء التحديد', // Custom text for deselect
+        selectAllText: 'تحديد الكل', // Custom text for select all
+        liveSearch: true,  // Enable live search if needed
+        actionsBox: true
+    });
+}
 function deleteConfirm(url){
     $('#btn-delete').attr('href', url);
     $('#deleteContactModal').modal();
@@ -107,14 +117,6 @@ function setRadio(gender,wife_details_form, gender_id) {
         } else {
             $(this).prop('checked', false); // Ensure other radio buttons are unchecked
         }
-    });
-}
-
-function initializeSelect2() {
-    $('#death_reason').select2({
-        placeholder: 'Select an option',
-        allowClear: true,
-        width: '100%' // Ensure Select2 fits within the container
     });
 }
 
@@ -207,9 +209,11 @@ function getChildDetails(id) {
                 $('#dob_child_detail', form).val(response.dob);
                 $('#after_death_incom', form).val(response.after_death_incom);
                 $('#naturalwork', form).val(response.naturalwork_id);
+                $('#child_cat_id', form).val(response.child_cat_id);
 
                 // Set radio button values
                 setRadio('gender', form, response.gender_id);
+                setRadio('care', form, response.care);
                 setRadio('asylum_status', form, response.asylum_status_id);
                 $('#dob_child_detail', form).each(function() {
                     $(this).datepicker({
@@ -241,7 +245,9 @@ function getChildDetails(id) {
     });
 }
 
-function initializeFormHandlers() {
+function initializeFormHandlers(tabId) {
+    console.log('Form handlers initialized');
+    console.log('members wafa');
     var contactForm = document.getElementById('contactForm');
     if (contactForm) {
         var selectElement = contactForm.querySelector('#contact_type');
@@ -791,39 +797,239 @@ function initializeFormHandlers() {
             });
         });
     }
+    if(tabId === 3) {
+        // Handling form for dwelling
+        var dwellingForm = document.getElementById('dwelling_form');
+        if (dwellingForm) {
+            // Flag to prevent multiple triggers
+            var generalAreaLoaded = false;
+            var localAreaLoaded = false;
+            var landmarkLoaded = false;
 
-    // Handling form for dwelling
-    var dwellingForm = document.getElementById('dwelling_form');
-    if (dwellingForm) {
-        dwellingForm.addEventListener('submit', function(event) {
-            var requiredFields = dwellingForm.querySelectorAll('[required]');
-            var isValid = true;
+            // Initialize city select picker
+            $('#dwelling_form  #city_id').selectpicker({
+                liveSearch: true,
+                size: 10,
+                width: '100%',
+                showSubtext: true,
+                liveSearchPlaceholder: 'ابحث....',
+                noneSelectedText: 'اختر',
+                deselectAllText: 'إلغاء التحديد',
+                selectAllText: 'تحديد الكل',
+                actionsBox: true
+            }).selectpicker('refresh');
 
-            requiredFields.forEach(function(field) {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.setCustomValidity('هذا الحقل مطلوب');
-                } else {
-                    field.setCustomValidity(''); // Remove custom message if field is filled
+            // Pre-select values for edit mode
+            var selectedCityID = $('#dwelling_form').data('selected-city-id');
+            var selectedGeneralAreaID = $('#dwelling_form').data('selected-general-area-id');
+            var selectedLocalAreaID = $('#dwelling_form').data('selected-local-area-id');
+            var selectedLandID = $('#dwelling_form').data('selected-land-id');
+
+            if (selectedCityID) {
+                $('#city_id').val(selectedCityID).selectpicker('refresh');
+                setTimeout(function () {
+                    $('#city_id').trigger('change');  // Trigger AJAX to load general areas
+                }, 200);
+            }
+
+            // AJAX Complete Handling
+            $(document).off('ajaxComplete').on('ajaxComplete', function(event, xhr, settings) {
+                // General Area Loading
+                if (settings.url === base_url + '/member/get_general_area' && !generalAreaLoaded) {
+                    console.log('Selected general area:', selectedGeneralAreaID);
+                    $('#general_area_id').val(selectedGeneralAreaID).selectpicker('refresh');
+                    generalAreaLoaded = true;
+                    $('#general_area_id').trigger('change');
+                }
+
+                // Local Area Loading
+                if (settings.url === base_url + '/member/get_local_area' && !localAreaLoaded) {
+                    $('#local_area_id').val(selectedLocalAreaID).selectpicker('refresh');
+                    localAreaLoaded = true;
+                    $('#local_area_id').trigger('change');
+                }
+
+                // Landmark Loading
+                if (settings.url === base_url + '/member/get_landmark' && !landmarkLoaded) {
+                    $('#nearest_famous_place').val(selectedLandID).selectpicker('refresh');
+                    landmarkLoaded = true;
                 }
             });
 
-            if (!isValid) {
-                event.preventDefault();
-                dwellingForm.reportValidity();
-            }
-        });
+            // City Change Event
+            $('#dwelling_form #city_id').off('change').on('change', function () {
+                var selectedValue = $(this).val();
+                if (selectedValue) {
+                    $('#general_area_id').empty().selectpicker('refresh').hide();
+                    $('#local_area_id').empty().selectpicker('refresh').hide();
+                    $('#nearest_famous_place').empty().selectpicker('refresh').hide();
+
+                    $.ajax({
+                        url: base_url + '/member/get_general_area',
+                        type: 'POST',
+                        data: { city_id: selectedValue },
+                        dataType: 'json',
+                        success: function (response) {
+                            $('#general_area_id').empty();
+                            if (response.length > 0) {
+                                $.each(response, function (index, area) {
+                                    var option = $('<option>', {
+                                        value: area.id,
+                                        text: area.title
+                                    });
+                                    $('#general_area_id').append(option);
+                                });
+                                $("#governorate").val(selectedValue);
+                                $('#general_area_id').show().selectpicker('refresh');
+                            } else {
+                                $('#dwelling_form #general_area_id').hide();
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'لا يوجد مناطق',
+                                    text: 'لا يوجد مناطق في هذه المدينة',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            $('#general_area_id').hide();
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'لا يوجد أحياء',
+                                text: 'لا يوجد أحياء في هذه المنطقة',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                }
+            });
+
+            // General Area Change Event
+            $('#dwelling_form #general_area_id').off('change').on('change', function () {
+                var generalAreaID = $(this).val();
+                if (generalAreaID) {
+                    $('#local_area_id').empty().selectpicker('refresh').hide();
+                    $('#nearest_famous_place').empty().selectpicker('refresh').hide();
+
+                    $.ajax({
+                        url: base_url + '/member/get_local_area',
+                        type: 'POST',
+                        data: { general_area_id: generalAreaID },
+                        dataType: 'json',
+                        success: function (response) {
+                            $('#local_area_id').empty();
+                            if (response.length > 0) {
+                                $.each(response, function (index, area) {
+                                    var option = $('<option>', {
+                                        value: area.id,
+                                        text: area.title
+                                    });
+                                    $('#local_area_id').append(option);
+                                });
+                                $('#local_area_id').show().selectpicker('refresh');
+                            } else {
+                                $('#local_area_id').hide();
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'لا يوجد أحياء',
+                                    text: 'لا يوجد أحياء في هذه المنطقة',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            $('#local_area_id').hide();
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'لا يوجد أحياء',
+                                text: 'لا يوجد أحياء في هذه المنطقة',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                }
+            });
+
+            // Local Area Change Event
+            $('#dwelling_form #local_area_id').off('change').on('change', function () {
+                var placeID = $(this).val();
+                if (placeID) {
+                    $('#nearest_famous_place').empty().selectpicker('refresh').hide();
+
+                    $.ajax({
+                        url: base_url + '/member/get_landmark',
+                        type: 'POST',
+                        data: { placeID: placeID },
+                        dataType: 'json',
+                        success: function (response) {
+                            $('#nearest_famous_place').empty();
+                            if (response.length > 0) {
+                                $.each(response, function (index, area) {
+                                    var option = $('<option>', {
+                                        value: area.id,
+                                        text: area.title
+                                    });
+                                    $('#nearest_famous_place').append(option);
+                                });
+                                $('#nearest_famous_place').show().selectpicker('refresh');
+                            } else {
+                                $('#nearest_famous_place').hide();
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'لا يوجد معالم',
+                                    text: 'لا يوجد معالم في هذا الحي',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'لا يوجد معالم',
+                                text: 'لا يوجد معالم في هذا الحي',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                }
+            });
+
+            // Form Validation on Submit
+            dwellingForm.addEventListener('submit', function (event) {
+                var requiredFields = dwellingForm.querySelectorAll('[required]');
+                var isValid = true;
+
+                requiredFields.forEach(function (field) {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.setCustomValidity('هذا الحقل مطلوب');
+                    } else {
+                        field.setCustomValidity('');
+                    }
+                });
+
+                if (!isValid) {
+                    event.preventDefault();
+                    dwellingForm.reportValidity();
+                }
+            });
+        }
     }
 
 }
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('DOM is fully loaded.');
+});
 
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('DOM fully loaded and parsed');
     // Initialize form handlers when the DOM is ready
     initializeFormHandlers();
 
     // Use a timeout to delay the activation of the first tab
     setTimeout(function() {
         var firstTab = document.querySelector('.tab-links div:first-child');
+        console.log('setTimeout='+firstTab);
         if (firstTab) {
             var firstTabTarget = firstTab.getAttribute('data-tab');
             if (firstTabTarget) {
@@ -844,27 +1050,34 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
-
+function getUrlSegment(segmentIndex) {
+    const urlSegments = window.location.pathname.split('/'); // Split the URL path
+    return urlSegments[segmentIndex] || null; // Return the segment or null if not found
+}
 $(document).ready(function() {
     $('.tab-links div').on('click', function(e) {
         e.preventDefault();
         var tabId = $(this).data('tab');
         var Id = $(this).data('id');
         var target = '#tab' + tabId;
-
+        console.log('target='+target);
         if (!$(target).hasClass('loaded')) {
+            console.log('w1w1w1w');
             // Load content if not already loaded
             $(target).load(base_url+'member/load_tab/'+tabId+'/'+Id, function() {
                 $(target).addClass('loaded');
-                initializeFormHandlers();
+                initializeFormHandlers(tabId);
                 if (tabId == '1') {
-                    initializeSelect2();
+                    initializeSelect();
+                }
+                if (tabId == '2') {
+                    initializeSelect();
                 }
                 if (tabId == '4') {
-                    initializeSelect2();
+                    initializeSelect();
                 }
                 if (tabId == '5') {
-                    initializeSelect2();
+                    initializeSelect();
                 }
 
             });
@@ -877,10 +1090,13 @@ $(document).ready(function() {
 
     if (tabId) {
         $('#t' + tabId + '_tab').click(); // Click the tab dynamically
+
     } else {
         // Default tab if no tabId is found
         setTimeout(function() {
             $('#t1_tab').click();
         }, 100);  // Adjust this timeout if needed
     }
+
+
 });

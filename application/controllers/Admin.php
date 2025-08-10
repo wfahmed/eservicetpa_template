@@ -20,14 +20,15 @@ class Admin extends MY_Controller {
                 'condition' => 'user.parent_user_id  = father.id '
             ),
         );
-        $dataChild= $this->Base_model->get_with_join('user.*,user.id as uid,pms.title as relation_type,father.full_name as father_name',
+       /* $dataChild= $this->Base_model->get_with_join('user.*,user.id as uid,pms.title as relation_type,father.full_name as father_name',
             'user', $join_array, '  user.deleted_by  is  null and father.deleted_by  is  null and user.age< 19 and father.user_status_id in(5,6,18) and father.relation_type_id = '. FAMILY_HEADER,
             'user.id asc');
         if (is_array($dataChild)) {
             $user_child_orphan = count($dataChild);
         } else {
             $user_child_orphan = 0; // Default to 0 if $dataChild is not an array
-        }
+        }*/
+        $user_child_orphan=$this->Base_model->count_records('orphans_view');
         /*_orphan*/
           $where=' deleted_by is null and user_status_id in(5,6,18) and relation_type_id = '. FAMILY_HEADER;
         $user_family_orphan = $this->Base_model->count_records('user', $where);
@@ -46,13 +47,8 @@ class Admin extends MY_Controller {
         $user_citezn = $this->Base_model->count_records('user', $where);
         $data['user_citezn']=$user_citezn;
         /**************/
-        $where=' deleted_by is null';
-        $projects = $this->Base_model->count_records('project_master', $where);
-        $data['projects']=$projects;
-        /***supplier***************/
-        $where=' deleted_by is null';
-        $supplier = $this->Base_model->count_records('supplier', $where);
-        $data['supplier']=$supplier;
+        $user_members = $this->db->get_where('user_refreshed_view ', ['is_emp' => 1,'deleted_by' => NULL])->result_array();
+       // var_dump($user_members);die();
         // view
         $data['param']['user_child']=$user_child;
         $data['param']['user_child_orphan']=$user_child_orphan;
@@ -60,17 +56,53 @@ class Admin extends MY_Controller {
         $data['param']['user_has_access']=$user_has_access;
         $data['param']['user_citezn']=$user_citezn;
         $data['param']['user_family']=$user_family;
-        $data['param']['projects']=$projects;
-        $data['param']['supplier']=$supplier;
         $data['title']=$title;
         $data['viewName']='admin/index';
-        $data['withParam']='n';
+        $data['withParam']='y';
+        $data['param']['user_members']=$user_members;
 
         $data['param']['js_file'][0] ='\assets\template\js\chart.js';
         $data['param']['js_file'][1] ='\assets\custom\dashboard.js';
         parent::index($data);
     }
 
+    ///////start visitor//////////////
+    public function visitor($title = 'ادارة المستخدمين')
+    {
+        $data['title'] = $title;
+        $data['viewName'] = 'visitor/index';
+        $this->load->model('VisitorModel');
+        $datap = $this->VisitorModel->get_users();
+        $this->db->where('deleted_by IS NULL', null, false); // Handling NULL
+        $query = $this->db->get('user_role');
+        $data['param']['roles'] = $query->result();
+        // $data['roles'] = $this->db->update('user', ['deleted_by' => NULL]);
+        //var_dump($datap);die();
+        $data['param']['rows'] = $this->objectToArray($datap);
+        $data['withParam'] = 'y';
+        parent::index($data);
+    }
+    /////
+    public function editvis()
+    {
+        $id = $this->input->post('id');
+        $data = [
+            'is_emp' => $this->input->post('is_emp'),
+            'role_id' => $this->input->post('role_id'),
+            // 'id' => $this->input->post('id'),
+            'updated_by' => $this->session->userdata('id'),
+            'updated_at' => date('Y-m-d')
+        ];
+        if ($this->db->update('user', $data, ['id' => $id])) {
+
+            $arr = array("ok" => 1, "msg" => "تم التعديل بنجاح");
+        } else {
+            $arr = array("ok" => 0, "msg" => "فشل التعديل!");
+        }
+        echo json_encode($arr);
+        exit();
+    }
+    ///////end visitor//////////////
     // function role
     public function role()
     {
@@ -224,7 +256,8 @@ class Admin extends MY_Controller {
                 'condition' => 'user_role.id = user_access_menu.role_id'
             ),
         );
-        $usermenu = $this->Base_model->get_with_join('user_menu.*,user_access_menu.*,user_sub_menu.ar_title as sub_title', 'user_access_menu', $join_array, '  user_access_menu.role_id = ' .$role_id . '  and user_access_menu.deleted_by is  null ', 'user_menu.id asc');
+        $usermenu = $this->Base_model->get_with_join('user_menu.*,user_access_menu.*,user_sub_menu.ar_title as sub_title',
+            'user_access_menu', $join_array, '  user_access_menu.role_id = ' .$role_id . '  and user_access_menu.deleted_by is  null  and user_menu.display=1 and user_sub_menu.is_active = 1 ', 'user_menu.id asc');
         $data['param']['role_id'] =$role_id ;
         $data['param']['menu'] =$usermenu ;
         $data['viewName']='admin/role_access';
@@ -412,77 +445,6 @@ if($role_id!=null ){
 
     }
 
-    public function get_statisc_support(){
-        // Define an empty JSON array for labels
-        $labels = [];
-        // Define an empty JSON array for data
-        $data = [];
-        $supporting_type =$this->db->get_where('constants', ['parent_id' => RELIEF,'deleted_by' =>NULL])->result_array();
-        foreach ($supporting_type as $item) {
-            $labels[] = $item['title']; // Push label to labels array
-            $project_supply =$this->db->get_where('project_supply', ['deleted_by' =>NULL,'support_fk'=>$item['id']])->result_array();
-            $data[] = count($project_supply);   // Push value to data array
-        }
-        // Create a response array
-        $response = [
-            'labels' => $labels,
-            'data' => $data
-        ];
-// Output the response as JSON
-        header('Content-Type: application/json');
-        echo json_encode($response);
-}
-
-    public function get_statisc_supplier(){
-        // Define an empty JSON array for labels
-        $labels = [];
-        // Define an empty JSON array for data
-        $data = [];
-        $suppliers =$this->db->get_where('supplier', ['deleted_by' =>NULL])->result_array();
-        foreach ($suppliers as $item) {
-            $labels[] = $item['supplier_name']; // Push label to labels array
-            $this->db->select_sum('supplier_remain_mony', 'total_amount');
-            $this->db->from('project_supply');
-            $this->db->where(['deleted_by' =>NULL,'supplier_fk'=>$item['supplier_id']]);
-            $query = $this->db->get();
-            $res= $query->row()->total_amount;
-            $data[] = $res;   // Push value to data array
-        }
-        // Create a response array
-        $response = [
-            'labels' => $labels,
-            'data' => $data
-        ];
-// Output the response as JSON
-        header('Content-Type: application/json');
-        echo json_encode($response);
-    }
-
-    public function get_statisc_association(){
-        // Define an empty JSON array for labels
-        $labels = [];
-        // Define an empty JSON array for data
-        $data = [];
-        $supporting =$this->db->get_where('constants', ['parent_id' => SUPPORTING_BODIES,'deleted_by' =>NULL])->result_array();
-
-        foreach ($supporting as $item) {
-            $labels[] = $item['title']; // Push label to labels array
-            $this->db->select_sum('approved_amount', 'total_amount');
-            $this->db->from('project_master');
-            $this->db->where(['deleted_by' =>NULL,'support_id'=>$item['id']]);
-            $query = $this->db->get();
-            $res= $query->row()->total_amount;
-            $data[] = $res;   // Push value to data array
-        }
-        // Create a response array
-        $response = [
-            'labels' => $labels,
-            'data' => $data
-        ];
-// Output the response as JSON
-        header('Content-Type: application/json');
-        echo json_encode($response);
-    }
 
     private function objectToArray($obj) {
     return json_decode(json_encode($obj), true);

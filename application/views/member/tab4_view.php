@@ -18,7 +18,7 @@ if(isset($param['wife']))  $wife=$param['wife'];
     <div id="collapseOne" class="collapse <?php if(empty($user_wife_row) )echo 'show';?>" aria-labelledby="headingOne" data-parent="#accordionExample">
     <div class="card-body  ">
 <form id="wife_form" action="<?= site_url('member/add_member/'.$user_row['id'].'/4'); ?>" method="post">
-    <input class="" type="hidden" name="gender" id="gender" value="أنثى" required >
+    <input class="" type="hidden" name="gender" id="gender" value="2" required >
     <input type="hidden" id="husband_user_id" name="husband_user_id" value="<?php if($user_row)echo $user_row['id'];else echo '0' ?>" />
     <!-- edit title -->
     <div class="form-group row">
@@ -46,14 +46,13 @@ if(isset($param['wife']))  $wife=$param['wife'];
             <input class="form-control" type="text" name="lname" id="lname" placeholder="الاسم الرابع" value="" required/>
                 <div id="lnameError" class="error-message-custom ">الاسم يحتوي على الحروف</div>
         </div>
-    </div>
-
-    <div class="form-group row">
-
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label for="dob">تاريخ الميلاد</label>
             <input class="form-control datepicker" type="text" id="dob"  name="dob" placeholder="تاريخ الميلاد" value="" required minlength="9" maxlength="9"/>
         </div>
+    </div>
+
+    <div class="form-group row">
         <div class="col-md-3">
             <label for="user_status">حالة الزوجة</label>
             <select name="user_status" id="user_status" class="form-control" required>
@@ -84,6 +83,16 @@ if(isset($param['wife']))  $wife=$param['wife'];
                 <?php endforeach; ?>
             </select>
         </div>
+        <div class="col-md-3">
+            <label for="profession_id">المهنة</label>
+            <select name="profession_id" id="profession_id" class="form-control selectpicker" data-live-search="true"  >
+                <option></option>
+                <?php $rows=$param['PROFESSIONS'];
+                foreach($rows as $r) : ?>
+                    <option value="<?= $r['id']; ?>"><?= $r['category'].'-'.$r['profession_name']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
     </div>
 
     <div class="form-group row">
@@ -94,8 +103,8 @@ if(isset($param['wife']))  $wife=$param['wife'];
         </div>
         <div class="col-md-3">
             <label for="death_reason">سبب الوفاة</label>
-            <select name="death_reason" id="death_reason" class="form-control select2" placeholder="اختر سبب" >
-                <option>اختر سبب</option>
+            <select name="death_reason" id="death_reason" class="form-control selectpicker" data-live-search="true"  placeholder="اختر سبب" >
+                <option value="null">اختر سبب</option>
                 <?php $rows=$param['DEATH_REASON'];
                 foreach($rows as $r) : ?>
                     <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -115,7 +124,7 @@ if(isset($param['wife']))  $wife=$param['wife'];
 
     <div class="form-group row">
 
-        <div class="col-md-4   mb-3 mb-sm-0">
+        <div class="col-md-3   mb-3 mb-sm-0">
             <label  > المواطنة</label>
             <div class="form-check col-sm-12">
                 <input class="form-check-input" type="radio" name="asylum_status" id="Refugee" value="1" required
@@ -124,6 +133,18 @@ if(isset($param['wife']))  $wife=$param['wife'];
                 <input class="form-check-input" type="radio" name="asylum_status" id="Citizen" value="2">
                 <label class="form-check-label" for="Citizen"> مواطن</label>
             </div>
+        </div>
+        <div class="col-md-3">
+            <label for="total_member_no">عدد الأفراد الإجمالي</label>
+            <input class="form-control" type="text" id="total_member_no" name="total_member_no" placeholder="عدد الأفراد " value="" required/>
+        </div>
+        <div class="col-md-3">
+            <label for="male_no_under_me">عدد الابناء الذكور</label>
+            <input class="form-control" type="text" id="male_no_under_me" name="male_no_under_me" placeholder="عدد الذكور " value="" required/>
+        </div>
+        <div class="col-md-3">
+            <label for="femail_no_under_me">عدد  الابناء الإناث</label>
+            <input class="form-control" type="text" id="femail_no_under_me" name="femail_no_under_me" placeholder="اعدد الإناث" value="" required/>
         </div>
     </div>
     <br>
@@ -182,13 +203,14 @@ if(isset($param['wife']))  $wife=$param['wife'];
                     <input class="form-control" type="text" name="lname" id="lname" placeholder="الاسم الرابع" value="<?php if($user_wife_row)echo $user_wife_row['lname'];else echo '' ?>" required/>
                     <div id="lnameError" class="error-message-custom ">الاسم يحتوي على الحروف</div>
                 </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="dob_wife">تاريخ الميلاد</label>
                     <input class="form-control datepicker" type="text" id="dob_wife"  name="dob_wife" placeholder="تاريخ الميلاد" value="<?=$user_wife_row['dob']?>" required minlength="9" maxlength="9"/>
                 </div>
+            </div>
+
+            <div class="form-group row">
+
                 <div class="col-md-3">
                     <label for="user_status">حالة الزوجة</label>
                     <select name="user_status" id="user_status" class="form-control" required>
@@ -225,6 +247,18 @@ if(isset($param['wife']))  $wife=$param['wife'];
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div class="col-md-3">
+                    <label for="profession_id">المهنة</label>
+                    <select name="profession_id" id="profession_id" class="form-control selectpicker" data-live-search="true"  >
+                        <option></option>
+                        <?php $rows=$param['PROFESSIONS'];
+                        foreach($rows as $r) : ?>
+                            <option value="<?= $r['id']; ?>" <?php if($user_wife_row)if($r['id']== $user_wife_row['profession_id']){
+                                echo 'selected' ;} else echo '' ;
+                            ?>><?= $r['category'].'-'.$r['profession_name']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
             </div>
 
             <div class="form-group row">
@@ -235,8 +269,8 @@ if(isset($param['wife']))  $wife=$param['wife'];
                 </div>
                 <div class="col-md-3">
                     <label for="death_reason">سبب الوفاة</label>
-                    <select name="death_reason" id="death_reason" class="form-control select2" >
-                        <option value="0">اختر السبب</option>
+                    <select name="death_reason" id="death_reason" class="form-control selectpicker" data-live-search="true"  >
+                        <option value="null">اختر السبب</option>
                         <?php $rows=$param['DEATH_REASON'];
                         foreach($rows as $r) : ?>
                             <option value="<?= $r['id']; ?>"<?php if($user_wife_row)if($r['id']== $user_wife_row['death_reason_id']){
@@ -257,8 +291,7 @@ if(isset($param['wife']))  $wife=$param['wife'];
             </div>
 
             <div class="form-group row">
-
-                <div class="col-md-4   mb-3 mb-sm-0">
+                <div class="col-md-3   mb-3 mb-sm-0">
                     <label  > المواطنة</label>
                     <div class="form-check col-sm-12">
                         <input class="form-check-input" type="radio" name="asylum_status" id="Refugee" value="1" required
@@ -273,7 +306,20 @@ if(isset($param['wife']))  $wife=$param['wife'];
                         <label class="form-check-label" for="Citizen"> مواطن</label>
                     </div>
                 </div>
-                <div class="col-md-4  d-none mb-3 mb-sm-0">
+                <div class="col-md-3">
+                    <label for="total_member_no">عدد الأفراد الإجمالي</label>
+                    <input class="form-control" type="text" id="total_member_no" name="total_member_no" placeholder="عدد الأفراد " value="<?php if($user_wife_row){echo $user_wife_row['total_member_no'];}else echo '0' ?>" required/>
+                </div>
+                <div class="col-md-3">
+                    <label for="male_no_under_me">عدد الابناء الذكور</label>
+                    <input class="form-control" type="text" id="male_no_under_me" name="male_no_under_me" placeholder="عدد الذكور " value="<?php if($user_wife_row)echo $user_wife_row['male_no_under_me'];else echo '0' ?>" required/>
+                </div>
+                <div class="col-md-3">
+                    <label for="femail_no_under_me">عدد الابناء الإناث</label>
+                    <input class="form-control" type="text" id="femail_no_under_me" name="femail_no_under_me" placeholder="اعدد الإناث" value="<?php if($user_wife_row)echo $user_wife_row['femail_no_under_me'];else echo '0' ?>" required/>
+                </div>
+
+                <div class="col-md-3  d-none mb-3 mb-sm-0">
                     <label >الجنس </label>
                     <div class="form-check col-sm-12">
                         <input class="form-check-input" type="radio" name="gender" id="male" value="1" required

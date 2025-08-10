@@ -2,6 +2,14 @@ $('#dataTable').DataTable({
     "paging": true,
     "searching": true
 });
+$('.selectpicker').selectpicker({
+    liveSearchPlaceholder: 'ابحث....' ,// Set a placeholder for search
+    noneSelectedText: 'اختر', // Placeholder text
+    deselectAllText: 'إلغاء التحديد', // Custom text for deselect
+    selectAllText: 'تحديد الكل', // Custom text for select all
+    liveSearch: true,  // Enable live search if needed
+    actionsBox: true
+});
 // sustom upload file
 $('.custom-file-input').on('change', function() {
     let fileName = $(this).val().split('\\').pop();

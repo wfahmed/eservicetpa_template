@@ -62,15 +62,11 @@
 
   <!-- Page level custom scripts -->
 
-<script src="<?= base_url('assets/'); ?>template/js/select2.min.js"></script>
+<script src="<?= base_url('assets/'); ?>template/js/select.min.js"></script>
 <script src="<?= base_url('assets/'); ?>template/js/sweet_alert.min.js"></script>
 <script src="<?= base_url('assets/'); ?>template/js/axios.min.js"></script>
+
 <script src="<?= base_url('assets/'); ?>template/js/main.js"></script>
-
-<!--<script src="<?/*= base_url('assets/'); */?>custom/maximize_header.js"></script>-->
-<!--<script src="<?/*= base_url('assets/'); */?>custom/tag_input.js"></script>-->
-<!--<script src="<?/*= base_url('assets/'); */?>template/css/datepicker/bootstrap-datepicker.min.js"></script>-->
-
 <?php if (isset($param['js_file'])):
     $rows= $param['js_file'];
     //var_dump($rows);
@@ -79,6 +75,7 @@
     <?php endforeach; ?>
 
 <?php endif; ?>
+
 </body>
 
 </html>

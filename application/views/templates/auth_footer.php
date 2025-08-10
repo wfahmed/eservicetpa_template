@@ -43,6 +43,10 @@
                             var trimmedStr = response.status.replace(/^"|"$/g, '');
                             window.location.href=base_url+trimmedStr;
                             break;
+                        case "user":
+                            var trimmedStr = response.status.replace(/^"|"$/g, '');
+                            window.location.href=base_url+trimmedStr;
+                            break;
                         default:
                             console.log("Unknown status: " + response.status);
                     }

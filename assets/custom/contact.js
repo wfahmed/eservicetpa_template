@@ -7,9 +7,9 @@ function updateValidation(contactType, input) {
     switch (parseInt(contactType)) {
         case 116: // Phone numbers
             input.setAttribute('type', 'tel');
-            input.setAttribute('pattern', '[0-9]{10}');
-            input.setAttribute('maxlength', '10');
-            input.placeholder = "ادخل رقم الجوال من 10 خانات";
+            input.setAttribute('pattern', '[0-9]{9}');
+            input.setAttribute('maxlength', '9');
+            input.placeholder = "ادخل رقم الجوال من 9 خانات";
             input.addEventListener('keypress', keypressHandler);
             input.addEventListener('paste', pasteHandler);
             input.addEventListener('input', inputHandler);

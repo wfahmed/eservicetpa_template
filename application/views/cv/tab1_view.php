@@ -24,18 +24,30 @@
         <input type="hidden" id="user_id"  name="user_id" value="<?php if(isset($param['user_row']))echo $param['user_row']['id'];else echo '0' ?>" />
         <input type="hidden" id="attach_id"  name="attach_id" value="" />
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="disability_type_id">نوع الإعاقة</label>
-                <select name="disability_type_id" id="disability_type_id" class="form-control" required >
+                <select name="disability_type_id" id="disability_type_id" class="form-control selectpicker" required >
+                    <option></option>
                     <?php $rows=$param['DISABILITY_STATUS'];
                     foreach($rows as $r) : ?>
                         <option value="<?= $r['id']; ?>" data_atr="<?= $r['title']; ?>"><?= $r['title']; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
+                <label for="psychological_status_id"> الوضع النفسي</label>
+                <select name="psychological_status_id" id="psychological_status_id" class="form-control selectpicker" required >
+                    <option></option>
+                    <?php $rows=$param['PSYCHOLOGICAL'];
+                    foreach($rows as $r) : ?>
+                        <option value="<?= $r['id']; ?>" data_atr="<?= $r['title']; ?>"><?= $r['title']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="col-md-4">
                 <label for="health_status_id ">الوضع الصحي</label>
-                <select name="health_status_id" id="health_status_id" class="form-control" required >
+                <select name="health_status_id" id="health_status_id" class="form-control selectpicker" required >
+                    <option></option>
                     <?php $rows=$param['HEALTH'];
                     foreach($rows as $r) : ?>
                         <option value="<?= $r['id']; ?>" data_atr="<?= $r['title']; ?>"><?= $r['title']; ?></option>
@@ -45,6 +57,10 @@
 
         </div>
         <div class="form-group row">
+            <div class="col-md-6 ">
+                <label for="disease_type">نوع المرض</label>
+                <textarea class="form-control" type="text" id="disease_type" name="disease_type" placeholder="تفاصيل" value="" ></textarea>
+            </div>
             <div class="col-md-6 ">
                 <label for="health_details">تفاصيل</label>
                 <textarea class="form-control" type="text" id="health_details" name="health_details" placeholder="تفاصيل" value="" ></textarea>
@@ -83,7 +99,9 @@
                 <tr>
                     <th>#</th>
                     <th>الإعاقة </th>
+                    <th>الوضع النفسي </th>
                     <th>الوضع الصحي </th>
+                    <th>نوع المرض </th>
                     <th>تفاصيل </th>
                     <th>نوع المرفق </th>
                     <th>المرفق </th>
@@ -98,7 +116,9 @@
                         <tr>
                             <td><?= $index; ?></td>
                             <td><?= $r['disability_type']; ?></td>
+                            <td><?= $r['psychological_status']; ?></td>
                             <td><?= $r['health_status']; ?></td>
+                            <td><?= $r['disease_type']; ?></td>
                             <td><?= $r['health_details']; ?></td>
                             <td><?= $r['attach_type']; ?></td>
                             <td>   <?php if (!empty($r['attach_path'])): ?>

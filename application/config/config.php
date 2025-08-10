@@ -390,7 +390,6 @@ $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Cookie Related Variables

@@ -12,10 +12,11 @@
   <title><?= $title; ?></title>
 
     <link rel="icon" sizes="50x50" href="<?=base_url()?>/assets/img/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
   <!-- Custom fonts for this template -->
   <link href="<?= base_url('assets/'); ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="<?=base_url('assets/'); ?>vendor/datepicker/jquery-ui.css" rel="stylesheet">
-  <link href="<?=base_url('assets/'); ?>template/css/fonts/font.css" rel="stylesheet">
+
   <link href="<?=base_url('assets/'); ?>template/css/tabs.css" rel="stylesheet">
   <link href="<?=base_url('assets/'); ?>template/css/table_thread_style.css" rel="stylesheet">
   <link href="<?=base_url('assets/'); ?>template/css/daterangepicker.css" rel="stylesheet">
@@ -24,13 +25,23 @@
 
   <!-- Custom styles for this template -->
   <link href="<?= base_url('assets/'); ?>template/css/sb-admin-2.css" rel="stylesheet">
-<!--  <link href="<?/*= base_url('assets/'); */?>css/maximize_header.css" rel="stylesheet">-->
-  <link href="<?= base_url('assets/'); ?>template/css/select2.min.css" rel="stylesheet">
-  <link href="<?= base_url('assets/'); ?>template/css/select2.css" rel="stylesheet">
+
+    <link href="<?= base_url('assets/'); ?>template/css/select.min.css" rel="stylesheet">
+  <!--<link href="<?php /*= base_url('assets/'); */?>template/css/select2.css" rel="stylesheet">-->
+    <link href="<?=base_url('assets/'); ?>template/css/buts.css" rel="stylesheet">
     <link href="<?=base_url('assets/'); ?>template/css/base.css" rel="stylesheet">
   <!-- Custom styles for this page -->
   <link href="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <style>
+        body,table,button,
+        html {
+            font-family: 'Cairo' !important;
+        }
 
+        .tooltip {
+            font-family: 'Cairo'  !important;
+        }
+    </style>
 </head>
 
 <body id="page-top" >

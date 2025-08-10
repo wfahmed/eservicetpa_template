@@ -31,41 +31,40 @@
                             <input type="hidden" name="user_id" value="<?php if(isset($param['user_row']))echo $param['user_row']['id'];else echo '0' ?>" />
                             <!-- edit title -->
                             <div class="form-group row">
-                                <div class="col-md-2.4" style="padding-left: 21px;padding-right: 12px;">
-                                    <label for="identity">رقم الهوية</label>
+                                <div class="col-md-2.4" style="padding-left: 1px;padding-right: 2px;">
+                                    <label class="required-label" for="identity">رقم الهوية</label>
                                     <input class="form-control" type="text" id="identity"  name="identity" placeholder="رقم الهوية " value="" required minlength="9" maxlength="9"/>
                                 </div>
-                                <div class="col-md-2" style="padding-left: 21px;">
+                                <div class="col-md-2" style="padding-left: 1px;">
                                 <label for="fname">الاسم الأول</label>
                                 <input class="form-control" type="text" name="fname"  id="fname" placeholder="الاسم الأول" value="" required/>
                                     <div id="fnameError" class="error-message-custom ">الاسم يحتوي على الحروف</div>
                             </div>
-                                <div class="col-md-2 " style="padding-left: 21px;">
-                                <label for="sname">الاسم الثاني</label>
+                                <div class="col-md-2 " style="padding-left: 1px;">
+                                <label class="required-label" for="sname">الاسم الثاني</label>
                                 <input class="form-control" type="text" id="sname" name="sname" placeholder="الاسم الثاني" value="" required/>
                                     <div id="snameError" class="error-message-custom ">الاسم يحتوي على الحروف</div>
                             </div>
-                                <div class="col-md-2.4" style="padding-left: 21px;">
-                                    <label for="tname">الاسم الثالث</label>
+                                <div class="col-md-2.4" style="padding-left: 2px;">
+                                    <label class="required-label" for="tname">الاسم الثالث</label>
                                     <input class="form-control" type="text" id="tname" name="tname"placeholder="الاسم الثالث" value="" required />
                                     <div id="tnameError" class="error-message-custom ">الاسم يحتوي على الحروف</div>
                                 </div>
-                                <div class="col-md-2.4" style="padding-left: 21px;">
-                                    <label for="lname">الاسم الرابع</label>
+                                <div class="col-md-2.4" style="padding-left: 1px;">
+                                    <label class="required-label" for="lname">الاسم الرابع</label>
                                     <input class="form-control" type="text" name="lname" id="lname" placeholder="الاسم الرابع" value="" required/>
                                     <div id="lnameError" class="error-message-custom ">الاسم يحتوي على الحروف</div>
+                                </div>
+                                <div class="col-md-2" style="padding-right: 1px;">
+                                    <label class="required-label" for="dob">تاريخ الميلاد</label>
+                                    <input autocomplete="off" class="form-control datepicker" type="text" id="dob"  name="dob" placeholder="تاريخ الميلاد" value="" required minlength="9" maxlength="9"/>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-
-                                <div class="col-md-3" style="padding-right: 10px;">
-                                    <label for="dob">تاريخ الميلاد</label>
-                                    <input class="form-control datepicker" type="text" id="dob"  name="dob" placeholder="تاريخ الميلاد" value="" required minlength="9" maxlength="9"/>
-                                </div>
                                 <div class="col-md-3" >
-                                    <label for="user_status">حالة الأب</label>
-                                    <select name="user_status" id="user_status" class="form-control" required>
+                                    <label class="required-label"  for="user_status">حالة الأب</label>
+                                    <select name="user_status" id="user_status" class="form-control selectpicker" data-live-search="true"  required>
                                         <?php $rows=$param['PARENT_STATUS'];
                                         foreach($rows as $r) : ?>
                                             <option value="<?= $r['id']; ?>" ><?= $r['title']; ?></option>
@@ -73,8 +72,8 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3" >
-                                    <label for="maretal_status">الحالة الإجتماعية</label>
-                                    <select name="maretal_status" id="maretal_status" class="form-control" required>
+                                    <label class="required-label"   for="maretal_status">الحالة الإجتماعية</label>
+                                    <select name="maretal_status" id="maretal_status" class="form-control selectpicker" data-live-search="true"  required>
                                         <?php
                                         $rows=$param['MARETAL_STATUS'];
                                         foreach($rows as $r) : ?>
@@ -83,12 +82,22 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3" >
-                                    <label for="naturalwork">طبيعة العمل</label>
-                                    <select name="naturalwork" id="naturalwork" class="form-control" required>
+                                    <label class="required-label"   for="naturalwork">طبيعة العمل</label>
+                                    <select name="naturalwork" id="naturalwork" class="form-control selectpicker" data-live-search="true"  required>
 
                                         <?php $rows=$param['NATURAL_WORK'];
                                         foreach($rows as $r) : ?>
                                             <option value="<?= $r['id']; ?>" ><?= $r['title']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="profession_id">المهنة</label>
+                                    <select name="profession_id" id="profession_id" class="form-control selectpicker" data-live-search="true"  >
+                                        <option></option>
+                                        <?php $rows=$param['PROFESSIONS'];
+                                        foreach($rows as $r) : ?>
+                                            <option value="<?= $r['id']; ?>"><?= $r['category'].'-'.$r['profession_name']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -98,11 +107,11 @@
                                 <div class="col-md-3">
                                     <label for="death_date">تاريخ الوفاة</label>
                                     <input placeholder="أدخل تاريخ الوفاة" type="text" class="form-control datepicker"
-                                           name="death_date" id="death_date" >
+                                           name="death_date" id="death_date" autocomplete="off" >
                                 </div>
                                 <div class="col-md-3">
                                     <label for="death_reason">سبب الوفاة</label>
-                                    <select name="death_reason" id="death_reason" class="form-control" >
+                                    <select name="death_reason" id="death_reason" class="form-control selectpicker" data-live-search="true" >
                                         <option value="0">أختر السبب</option>
                                         <?php $rows=$param['DEATH_REASON'];
                                         foreach($rows as $r) : ?>
@@ -130,6 +139,18 @@
                                         <input class="form-check-input" type="radio" name="asylum_status" id="Citizen" value="2">
                                         <label class="form-check-label" for="Citizen"> مواطن</label>
                                     </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="total_member_no">عدد الأفراد الإجمالي</label>
+                                    <input class="form-control" type="text" id="total_member_no" name="total_member_no" placeholder="عدد الأفراد " value="" required/>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="male_no_under_me">عدد الابناء الذكور</label>
+                                    <input class="form-control" type="text" id="male_no_under_me" name="male_no_under_me" placeholder="عدد الذكور " value="" required/>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="femail_no_under_me">عدد  الابناء الإناث</label>
+                                    <input class="form-control" type="text" id="femail_no_under_me" name="femail_no_under_me" placeholder="اعدد الإناث" value="" required/>
                                 </div>
                             </div>
                             <!-- btn -->

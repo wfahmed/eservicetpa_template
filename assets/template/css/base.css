@@ -1,3 +1,6 @@
+.filter-option-inner-inner{
+    float:right !important;
+}
 .btn-style {
     display: inline-block;
     padding: 8px 15px;
@@ -16,6 +19,19 @@
     color: white;
     text-decoration: none;
 }
+
+.badge-style {
+    display: inline-block;
+    padding: 8px 15px;
+    color: white;
+    text-decoration: none;
+    border: none;
+    font-size: 16px;
+    font-family: "Times New Roman";
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
 .form-footer {
     padding: 15px;                  /* Padding around the footer */
     text-align: right;              /* Align buttons to the right */

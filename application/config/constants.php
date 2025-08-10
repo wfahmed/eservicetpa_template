@@ -31,6 +31,10 @@ defined('FILE_WRITE_MODE') OR define('FILE_WRITE_MODE', 0666);
 defined('DIR_READ_MODE')   OR define('DIR_READ_MODE', 0755);
 defined('DIR_WRITE_MODE')  OR define('DIR_WRITE_MODE', 0755);
 /********for brogram********/
+define('PSYCHOLOGICAL', 226);
+define('CATEGORY', 230);
+define('QURAN', 237);
+define('SPON_TYPE', 109);
 define('CHILD_AGE', 19);
 define('GUARANTEE_SUB', 200);
 define('CURRENCY', 202);

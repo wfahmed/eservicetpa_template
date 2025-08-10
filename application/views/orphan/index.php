@@ -60,21 +60,21 @@
     <div class="card shadow mb-4">
         <form id="orphanFilterForm" class="mb-4">
             <div class="container-fluid">
-                <div class="card-header" id="GuaranteeFilterHeader">
+                <div class="card-header" id="GuaranteeFilterHeader" style="background-color:#4c8359">
                     <h5 class="mb-0">
                         <button   type="button" data-bs-toggle="collapse" data-bs-target="#GuaranteeFilterCollapse" aria-expanded="true" aria-controls="GuaranteeFilterCollapse">
                             محددات الكفالة
                         </button>
                     </h5>
                 </div>
-                <div id="GuaranteeFilterCollapse" class="collapse show" aria-labelledby="GuaranteeFilterHeader">
+                <div id="GuaranteeFilterCollapse" class="collapse show" aria-labelledby="GuaranteeFilterHeader" >
                     <div class="card-body">
                         <div class="row ">
                             <div class="col-md-3 ">
                                 <div class="form-group">
                                     <label for="guarantee_type_id" class="form-label">نوع الكفالة</label>
-                                    <select id="guarantee_type_id" class="form-control" name="guarantee_type_id[]" multiple="multiple">
-                                        <option value="">اختر</option>
+                                    <select id="guarantee_type_id" class="form-control selectpicker" data-live-search="true"  name="guarantee_type_id[]" multiple="multiple">
+                                        
                                         <?php $rows=$param['RELIEF'];
                                         foreach($rows as $r) : ?>
                                             <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -85,8 +85,8 @@
                             <div class="col-md-3 ">
                                 <div class="form-group">
                                     <label for="guarantee_subtype_id" class="form-label">قيمة الكقالة</label>
-                                    <select id="guarantee_subtype_id" name="guarantee_subtype_id[]" class="form-control" multiple="multiple">
-                                        <option value="">اختر</option>
+                                    <select id="guarantee_subtype_id" name="guarantee_subtype_id[]" class="form-control selectpicker" data-live-search="true"  multiple="multiple">
+                                        
                                         <?php $rows=$param['GUARANTEE_SUB'];
                                         foreach($rows as $r) : ?>
                                             <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -97,8 +97,8 @@
                             <div class="col-md-3 ">
                                 <div class="form-group">
                                     <label for="currency_id" class="form-label"> العملة</label>
-                                    <select id="currency_id" class="form-control" name="currency_id[]" multiple="multiple">
-                                        <option value="">اختر</option>
+                                    <select id="currency_id" class="form-control selectpicker" data-live-search="true"  name="currency_id[]" multiple="multiple">
+                                        
                                         <?php $rows=$param['CURRENCY'];
                                         foreach($rows as $r) : ?>
                                             <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -109,8 +109,8 @@
                             <div class="col-md-3 ">
                                 <div class="form-group">
                                     <label for="donar_id" class="form-label">الجهة المانحة</label>
-                                    <select id="donar_id" class="form-control" name="donar_id[]" multiple="multiple">
-                                        <option value="">اختر</option>
+                                    <select id="donar_id" class="form-control selectpicker" data-live-search="true"  name="donar_id[]" multiple="multiple">
+                                        
                                         <?php $rows=$param['SUPPORTING_BODIES'];
                                         foreach($rows as $r) : ?>
                                             <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -123,8 +123,8 @@
                             <div class="col-md-3 ">
                                 <div class="form-group">
                                     <label for="benefit_id" class="form-label"> نوع الاستفادة</label>
-                                    <select id="benefit_id" class="form-control" name="benefit_id[]" multiple="multiple">
-                                        <option value="">اختر</option>
+                                    <select id="benefit_id" class="form-control selectpicker" data-live-search="true"  name="benefit_id[]" multiple="multiple">
+                                        
                                         <?php $rows=$param['BENEFIT'];
                                         foreach($rows as $r) : ?>
                                             <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -136,16 +136,15 @@
                                 <div class="form-group">
                                     <label for="benefit_date_range" class="form-label">تاريخ الاستفادة</label>
                                     <div class="input-group">
-                                        <input type="text" id="benefit_date_range" class="form-control" readonly>
+                                        <input type="text" id="benefit_date_range" class="form-control selectpicker" data-live-search="true"  readonly>
                                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="father_asylum_status_id" class="form-label">المدة</label>
-                                    <select id="father_asylum_status_id" class="form-control">
-                                        <option value="">اختر</option>
+                                    <label for="period" class="form-label">المدة</label>
+                                    <select multiple="multiple" id="period" name="period[]"  class="form-control selectpicker" data-live-search="true" >
                                         <option value="2">مرة واحدة</option>
                                         <option value="1">ممتدة</option>
                                     </select>
@@ -156,7 +155,7 @@
                     </div>
                 </div>
 
-                <div class="card-header" id="fatherFilterHeader">
+                <div class="card-header" id="fatherFilterHeader"  style="background-color:#ae4b4b">
                     <h5 class="mb-0">
                         <button type="button" data-bs-target="#fatherFilterCollapse" aria-expanded="true" aria-controls="fatherFilterCollapse">
                             محددات الوالد
@@ -179,8 +178,10 @@
                     <div class="col-md-4 col-lg-3">
                         <div class="form-group">
                             <label for="father_asylum_status_id" class="form-label">المواطنة</label>
-                            <select id="father_asylum_status_id" class="form-control">
-                                <option value="">اختر</option>
+                            <select multiple="multiple"
+                                    id="father_asylum_status_id" name="father_asylum_status_id[]"
+                                    class="form-control selectpicker" data-live-search="true" >
+                                
                                 <option value="2">مواطن</option>
                                 <option value="1">لاجىء</option>
                             </select>
@@ -189,8 +190,8 @@
                     <div class="col-md-4 col-lg-3">
                         <div class="form-group">
                             <label for="father_user_status_id" class="form-label">حالة الأب</label>
-                            <select id="father_user_status_id" class="form-control" name="father_user_status_id[]" multiple="multiple">
-                                <option value="">اختر</option>
+                            <select id="father_user_status_id" class="form-control selectpicker" data-live-search="true"  name="father_user_status_id[]" multiple="multiple">
+                                
                                 <?php $rows=$param['PARENT_STATUS'];
                                 foreach($rows as $r) : ?>
                                     <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -201,8 +202,8 @@
                     <div class="col-md-4 col-lg-3">
                         <div class="form-group">
                             <label for="father_naturalwork_id" class="form-label">طبيعة العمل</label>
-                            <select id="father_naturalwork_id" name="father_naturalwork_id[]" class="form-control" multiple="multiple">
-                                <option value="">اختر</option>
+                            <select id="father_naturalwork_id" name="father_naturalwork_id[]" class="form-control selectpicker" data-live-search="true"  multiple="multiple">
+                                
                                 <?php $rows=$param['NATURAL_WORK'];
                                 foreach($rows as $r) : ?>
                                     <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -213,8 +214,8 @@
                     <div class="col-md-4 col-lg-3">
                         <div class="form-group">
                             <label for="father_maretal_status_id" class="form-label">الحالة الاجتماعية</label>
-                            <select id="father_maretal_status_id" class="form-control" name="father_maretal_status_id[]" multiple="multiple">
-                                <option value="">اختر</option>
+                            <select id="father_maretal_status_id" class="form-control selectpicker" data-live-search="true"  name="father_maretal_status_id[]" multiple="multiple">
+                                
                                 <?php $rows=$param['MARETAL_STATUS'];
                                 foreach($rows as $r) : ?>
                                     <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -225,8 +226,8 @@
                     <div class="col-md-4 col-lg-3">
                         <div class="form-group">
                             <label for="father_disability_status_id" class="form-label">حالة الإعاقة</label>
-                            <select id="father_disability_status_id" class="form-control" name="father_disability_status_id[]" multiple="multiple">
-                                <option value="">اختر</option>
+                            <select id="father_disability_status_id" class="form-control selectpicker" data-live-search="true"  name="father_disability_status_id[]" multiple="multiple">
+                                
                                 <?php $rows=$param['DISABILITY_STATUS'];
                                 foreach($rows as $r) : ?>
                                     <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -237,8 +238,8 @@
                     <div class="col-md-4 col-lg-3">
                         <div class="form-group">
                             <label for="father_health_status_id" class="form-label">الحالة الصحية</label>
-                            <select id="father_health_status_id" class="form-control" name="father_health_status_id[]" multiple="multiple">
-                                <option value="">اختر</option>
+                            <select id="father_health_status_id" class="form-control selectpicker" data-live-search="true"  name="father_health_status_id[]" multiple="multiple">
+                                
                                 <?php $rows=$param['HEALTH'];
                                 foreach($rows as $r) : ?>
                                     <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -250,7 +251,7 @@
                 </div>
                 </div>
 
-                <div class="card-header" id="motherFilterHeader">
+                <div class="card-header" id="motherFilterHeader"  style="background-color:#9f662a">
                     <h5 class="mb-0">
                         <button   type="button" data-bs-toggle="collapse" data-bs-target="#motherFilterCollapse" aria-expanded="true" aria-controls="motherFilterCollapse">
                             محددات الوالدة
@@ -272,8 +273,8 @@
                     <div class="col-md-4 ">
                         <div class="form-group">
                             <label for="mother_user_status_id" class="form-label">حالة الأم</label>
-                            <select id="mother_user_status_id" class="form-control" name="mother_user_status_id[]" multiple="multiple">
-                                <option value="">اختر</option>
+                            <select id="mother_user_status_id" class="form-control selectpicker" data-live-search="true"  name="mother_user_status_id[]" multiple="multiple">
+                                
                                 <?php $rows=$param['PARENT_STATUS'];
                                 foreach($rows as $r) : ?>
                                     <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -284,8 +285,8 @@
                     <div class="col-md-4 ">
                         <div class="form-group">
                             <label for="mother_naturalwork_id" class="form-label">طبيعة العمل</label>
-                            <select id="mother_naturalwork_id" name="mother_naturalwork_id[]" class="form-control" multiple="multiple">
-                                <option value="">اختر</option>
+                            <select id="mother_naturalwork_id" name="mother_naturalwork_id[]" class="form-control selectpicker" data-live-search="true"  multiple="multiple">
+                                
                                 <?php $rows=$param['NATURAL_WORK'];
                                 foreach($rows as $r) : ?>
                                     <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -298,8 +299,8 @@
                     <div class="col-md-4 ">
                         <div class="form-group">
                             <label for="mother_maretal_status_id" class="form-label">الحالة الاجتماعية</label>
-                            <select id="mother_maretal_status_id" class="form-control" name="mother_maretal_status_id[]" multiple="multiple">
-                                <option value="">اختر</option>
+                            <select id="mother_maretal_status_id" class="form-control selectpicker" data-live-search="true"  name="mother_maretal_status_id[]" multiple="multiple">
+                                
                                 <?php $rows=$param['MARETAL_STATUS'];
                                 foreach($rows as $r) : ?>
                                     <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -310,8 +311,8 @@
                     <div class="col-md-4 ">
                         <div class="form-group">
                             <label for="mother_disability_status_id" class="form-label">حالة الإعاقة</label>
-                            <select id="mother_disability_status_id" class="form-control" name="mother_disability_status_id[]" multiple="multiple">
-                                <option value="">اختر</option>
+                            <select id="mother_disability_status_id" class="form-control selectpicker" data-live-search="true"  name="mother_disability_status_id[]" multiple="multiple">
+                                
                                 <?php $rows=$param['DISABILITY_STATUS'];
                                 foreach($rows as $r) : ?>
                                     <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -322,8 +323,8 @@
                     <div class="col-md-4 ">
                         <div class="form-group">
                             <label for="mother_health_status_id" class="form-label">الحالة الصحية</label>
-                            <select id="mother_health_status_id" class="form-control" name="mother_health_status_id[]" multiple="multiple">
-                                <option value="">اختر</option>
+                            <select id="mother_health_status_id" class="form-control selectpicker" data-live-search="true"  name="mother_health_status_id[]" multiple="multiple">
+                                
                                 <?php $rows=$param['HEALTH'];
                                 foreach($rows as $r) : ?>
                                     <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -335,7 +336,7 @@
                 </div>
                 </div>
 
-                <div class="card-header" id="dewllingFilterHeader">
+                <div class="card-header" id="dewllingFilterHeader" style="background-color:#9f8c2a">
                     <h5 class="mb-0">
                         <button   type="button" data-bs-toggle="collapse" data-bs-target="#dewllingFilterCollapse" aria-expanded="true" aria-controls="dewllingFilterCollapse">
                             محددات السكن
@@ -348,8 +349,8 @@
                             <div class="col-md-3 ">
                                 <div class="form-group">
                                     <label for="dwelling_nature_id" class="form-label">طبيعة المسكن</label>
-                                    <select id="dwelling_nature_id" class="form-control" name="dwelling_nature_id[]" multiple="multiple">
-                                        <option value="">اختر</option>
+                                    <select id="dwelling_nature_id" class="form-control selectpicker" data-live-search="true"  name="dwelling_nature_id[]" multiple="multiple">
+                                        
                                         <?php $rows=$param['DWELLING_NATURE'];
                                         foreach($rows as $r) : ?>
                                             <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -360,8 +361,8 @@
                             <div class="col-md-3 ">
                                 <div class="form-group">
                                     <label for="dwelling_damage_id" class="form-label">حالة المسكن</label>
-                                    <select id="dwelling_damage_id" name="dwelling_damage_id[]" class="form-control" multiple="multiple">
-                                        <option value="">اختر</option>
+                                    <select id="dwelling_damage_id" name="dwelling_damage_id[]" class="form-control selectpicker" data-live-search="true"  multiple="multiple">
+                                        
                                         <?php $rows=$param['DWELLING_STATUS'];
                                         foreach($rows as $r) : ?>
                                             <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -371,21 +372,9 @@
                             </div>
                             <div class="col-md-3 ">
                                 <div class="form-group">
-                                    <label for="governorate_id" class="form-label"> المحافظة</label>
-                                    <select id="governorate_id" class="form-control" name="governorate_id[]" multiple="multiple">
-                                        <option value="">اختر</option>
-                                        <?php $rows=$param['GOVERNORATES'];
-                                        foreach($rows as $r) : ?>
-                                            <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3 ">
-                                <div class="form-group">
-                                    <label for="valley_side_id" class="form-label">المنطقة الحالية</label>
-                                    <select id="valley_side_id" class="form-control" name="valley_side_id[]" multiple="multiple">
-                                        <option value="">اختر</option>
+                                    <label for="valley_side_id" class="form-label">التواجد الحالي</label>
+                                    <select id="valley_side_id" class="form-control selectpicker" data-live-search="true"  name="valley_side_id[]" multiple="multiple">
+                                        
                                         <?php $rows=$param['VALLEY_SIDE'];
                                         foreach($rows as $r) : ?>
                                             <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -393,11 +382,68 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="col-md-3 ">
+                                <div class="form-group">
+                                    <label for="current_residence_status" class="form-label"> المنطقة الحالية</label>
+                                    <select id="current_residence_status"
+                                            class="form-control selectpicker" data-live-search="true"
+                                            name="current_residence_status[]" multiple="multiple">
+                                        <?php $rows=$param['CURRENT_RESIDENCE'];
+                                        foreach($rows as $r) : ?>
+                                            <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                <label for="city_id">محافظة</label>
+                                <select  multiple="multiple" name="city_id[]" id="city_id" class="form-control
+                                 selectpicker" data-live-search="true"
+                                       required>
+                                    <?php $rows=$param['GOVERNORATES'];
+                                    foreach($rows as $r) : ?>
+                                        <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+
+                            </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                <label for="general_area_id">منطقة</label>
+                                <select   title="اختر..."   class="form-control selectpicker" data-live-search="true"
+                                          multiple="multiple"   type="text" name="general_area_id[]" id="general_area_id"   required>
+
+                                </select>
+                            </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                <label for="local_area_id">حي</label>
+                                <select  title="اختر..."  class="form-control selectpicker" data-live-search="true"
+                                        multiple="multiple"     type="text" name="local_area_id[]" id="local_area_id"   required>
+
+                                </select>
+                            </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                <label for="nearest_famous_place">أقرب معلم</label>
+                                <select style="display:none;"   title="اختر..."  class="form-control selectpicker" data-live-search="true"
+                                        type="text" name="nearest_famous_place" id="nearest_famous_place"   >
+
+                                </select>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-header" id="orphanFilterHeader">
+                <div class="card-header" id="orphanFilterHeader" style="background-color:#9f492a">
                     <h5 class="mb-0">
                         <button type="button" data-bs-target="#orphanFilterCollapse" aria-expanded="true" aria-controls="orphanFilterCollapse">
                             محددات اليتيم
@@ -421,8 +467,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="orphan_gender_id" class="form-label">الجنس</label>
-                                    <select id="orphan_gender_id" class="form-control">
-                                        <option value="">اختر</option>
+                                    <select id="orphan_gender_id" name="orphan_gender_id[]"  class="form-control selectpicker" data-live-search="true"  multiple="multiple">
                                         <option value="2">أنثى</option>
                                         <option value="1">ذكر</option>
                                     </select>
@@ -443,8 +488,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="orphan_edu_id" class="form-label"> المستوى التعليمي</label>
-                                    <select id="orphan_edu_id" name="orphan_edu_id[]" class="form-control" multiple="multiple">
-                                        <option value="">اختر</option>
+                                    <select id="orphan_edu_id" name="orphan_edu_id[]" class="form-control selectpicker" data-live-search="true"  multiple="multiple">
+                                        
                                         <?php $rows=$param['EDUCATION'];
                                         foreach($rows as $r) : ?>
                                             <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -455,8 +500,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="orphan_disability_status_id" class="form-label">حالة الإعاقة</label>
-                                    <select id="orphan_disability_status_id" class="form-control" name="orphan_disability_status_id[]" multiple="multiple">
-                                        <option value="">اختر</option>
+                                    <select id="orphan_disability_status_id" class="form-control selectpicker" data-live-search="true"  name="orphan_disability_status_id[]" multiple="multiple">
+                                        
                                         <?php $rows=$param['DISABILITY_STATUS'];
                                         foreach($rows as $r) : ?>
                                             <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -467,8 +512,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="orphan_health_status_id" class="form-label">الحالة الصحية</label>
-                                    <select id="orphan_health_status_id" class="form-control" name="orphan_health_status_id[]" multiple="multiple">
-                                        <option value="">اختر</option>
+                                    <select id="orphan_health_status_id" class="form-control selectpicker" data-live-search="true"  name="orphan_health_status_id[]" multiple="multiple">
+                                        
                                         <?php $rows=$param['HEALTH'];
                                         foreach($rows as $r) : ?>
                                             <option value="<?= $r['id']; ?>"><?= $r['title']; ?></option>
@@ -481,22 +526,27 @@
                 </div>
 
                 <div class="col-12 form-footer">
-                    <button type="button" id="applyFilters" class="btn btn-primary">نفذ البحث</button>
-                    <button type="reset" id="resetFilters" class="btn btn-secondary">إلغاء</button>
+                    <button type="button" id="applyFilters" class="btn " style="background-color: #d59e13;color:white">نفذ البحث</button>
+                    <button type="button" id="resetFilters" class="btn btn-secondary">تفريغ الحقول</button>
+                    <a type="button" target="_blank" href="<?=base_url('member/printmember/0')?>" class="btn" style="background-color: #526e53;color:white"> طباعة استمارة فارغة</a>
                 </div>
             </div>
         </form>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped" id="orphanTable" width="100%" cellspacing="0">
-                        <thead class="thead-dark-purble">
+                        <thead style=" background: linear-gradient(to right,
+                #4c8359 0%,     /* Color 1 */
+                #ae4b4b 25%,    /* Color 2 */
+                #9f662a 50%,    /* Color 3 */
+                #9f8c2a 75%,    /* Color 4 */
+                #9f492a 100%    /* Color 5 */
+            );;color:white">
                                 <tr>
                                     <th>الاسم</th>
-                                    <th>العمر</th>
+                                    <th>الهوية</th>
                                     <th>الوالد</th>
                                     <th>الوالدة</th>
-                                    <th>الوكيل</th>
-                                    <th>العلاقة</th>
                                     <th>اجراءات</th>
                                 </tr>
                         </thead>
@@ -518,15 +568,15 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+        <h5 class="modal-title" id="exampleModalLabel">هل أنت متاكد؟</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <div class="modal-body">Deleted data cannot be recovered!</div>
+        <div class="modal-body">لا يمكن استعادة ما تم حذفه!</div>
       <div class="modal-footer">
-        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-        <a id="btn-delete" class="btn btn-danger" href="#">Remove</a>
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">إلغاء</button>
+        <a id="btn-delete" class="btn btn-danger" href="#">حذف</a>
       </div>
     </div>
   </div>

@@ -28,7 +28,7 @@ class MY_Controller extends CI_Controller {
         $this->load->model(array('Base_model', 'base_model'));
 
 
-      //  $this->load->model('systems/m_users');
+        //  $this->load->model('systems/m_users');
 
 
         header('Last-Modified:'.gmdate('D, d M Y H:i:s').'GMT');
@@ -45,16 +45,25 @@ class MY_Controller extends CI_Controller {
 
     public function index($dataAr)
     {
+        $userAuth= $this->db->get_where('user', ['user_name' => $this->session->userdata('user_name')])->row_array();
+        if(!isset($dataAr['user'])){
+            $user = $userAuth;
+        }else {
+            $user = $dataAr['user'];
+        }
+
         $this->data = [
             'title' => $dataAr['title'],
             'sub_title' =>isset ($dataAr['sub_title'])?$dataAr['sub_title'] :'',
-            'user' => $this->db->get_where('user', ['user_name' => $this->session->userdata('user_name')])->row_array(),
+            'user' => $userAuth,
+            'user_data' => $user,
             'user_role' => $this->db->get_where('user_role', ['deleted_by'=> NULL])->num_rows(),
             'user_member' => $this->db->get_where('user', ['role_id' => 2])->num_rows(),
             'menu' => $this->db->get_where('user_menu', ['deleted_by'=> NULL])->num_rows(),
             'sub_menu' => $this->db->get('user_sub_menu')->num_rows(),
             'report' => $this->db->get('user_report')->num_rows(),
         ];
+
         if(isset($dataAr['param'])){
             $this->data['param'] = $dataAr['param'];
 
@@ -80,7 +89,6 @@ class MY_Controller extends CI_Controller {
 
             if($dataAr['withParam']=='y'){
                 $this->load->view($dataAr['viewName'], $this->data);
-
             }else{
                 $this->load->view($dataAr['viewName']);
 
@@ -89,9 +97,6 @@ class MY_Controller extends CI_Controller {
             $this->load->view('templates/admin_footer');
 
         }
-        // var_dump( $this->data);die();
-
-
     }
 
     public  function get_client_ip() {

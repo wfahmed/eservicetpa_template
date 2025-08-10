@@ -9,18 +9,29 @@
 
             // Show the modal
             $('#newDefModal').modal('show');
-            $('#parent_id').select2({
+          /*  $('#parent_id').select2({
                 placeholder: 'Select an option',
                 allowClear: true
-            });
+            });*/
+            $('#parent_id').selectpicker('refresh');
         });
 
     // Reinitialize Select2 when the modal is hidden (optional)
     $('#newDefModal').on('.modal.fade', function () {
-        $('#parent_id').select2('destroy'); // Destroy if needed, to prevent issues
+       // $('#parent_id').select2('destroy'); // Destroy if needed, to prevent issues
+        $('#parent_id').selectpicker('destroy');  // Destroy if needed
     });
     });
 </script>
+<style>
+    /* Align text inside the selectpicker button */
+
+
+    /* Optional: Ensure caret icon (arrow) stays aligned on the left */
+    .bootstrap-select .dropdown-toggle  {
+        float: right; /* Keeps the caret icon on the left side */
+    }
+</style>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -101,7 +112,7 @@
             </div>
             <div class=" col-lg-12 ">
             <div class="form-group">
-                <select name="parent_id" id="parent_id" class="form-control select2" style="width: 100%">
+                <select name="parent_id" id="parent_id" class="form-control selectpicker" data-live-search="true" style="width: 100%">
                     <!--<option value="">---اختر التعريف الرئيسي---</option>-->
                     <?php $rows=$param['rows'];
                     foreach($rows as $r) : ?>

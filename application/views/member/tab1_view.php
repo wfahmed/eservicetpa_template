@@ -3,6 +3,7 @@
 <form id="father_form" action="<?= site_url('member/edit_member/'.$user_row['id']); ?>" method="post">
 
     <input type="hidden" id="user_id"  name="user_id" value="<?php if($user_row)echo $user_row['id'];else echo '0' ?>" />
+    <input type="hidden" id="relation_type_id"  name="relation_type_id" value="<?php if($user_row)echo $user_row['relation_type_id'];else echo '141' ?>" />
     <!-- edit title -->
     <div class="form-group row">
         <div class="col-md-2.4" style="padding-left: 3px;padding-right: 2px;">
@@ -29,16 +30,17 @@
             <input class="form-control" type="text" name="lname" id="lname" placeholder="الاسم الرابع" value="<?php if($user_row)echo $user_row['lname'];else echo '' ?>" required/>
             <div id="lnameError" class="error-message-custom ">الاسم يحتوي على الحروف</div>
         </div>
+        <div class="col-md-2">
+            <label for="dob_father">تاريخ الميلاد</label>
+            <input class="form-control datepicker" type="text" id="dob_father"  name="dob_father" placeholder="تاريخ الميلاد" value="<?=$user_row['dob']?>" required minlength="9" maxlength="9"/>
+        </div>
     </div>
 
     <div class="form-group row">
         <div class="col-md-3">
-            <label for="dob_father">تاريخ الميلاد</label>
-            <input class="form-control datepicker" type="text" id="dob_father"  name="dob_father" placeholder="تاريخ الميلاد" value="<?=$user_row['dob']?>" required minlength="9" maxlength="9"/>
-        </div>
-        <div class="col-md-3">
             <label for="user_status">حالة الأب</label>
-            <select name="user_status" id="user_status" class="form-control" required>
+            <select name="user_status" id="user_status" class="form-control selectpicker" data-live-search="true"  required>
+                <option></option>
                 <?php
                 $rows=$param['PARENT_STATUS'];
                 foreach($rows as $r) : ?>
@@ -50,7 +52,8 @@
         </div>
         <div class="col-md-3">
             <label for="maretal_status">الحالة الإجتماعية</label>
-            <select name="maretal_status" id="maretal_status" class="form-control" required>
+            <select name="maretal_status" id="maretal_status" class="form-control selectpicker" data-live-search="true"  required>
+                <option></option>
                 <?php
                 $rows=$param['MARETAL_STATUS'];
                 foreach($rows as $r) : ?>
@@ -62,13 +65,25 @@
         </div>
         <div class="col-md-3">
             <label for="naturalwork">طبيعة العمل</label>
-            <select name="naturalwork" id="naturalwork" class="form-control" required>
-
+            <select name="naturalwork" id="naturalwork" class="form-control selectpicker" data-live-search="true"  required>
+                <option></option>
                 <?php $rows=$param['NATURAL_WORK'];
                 foreach($rows as $r) : ?>
                     <option value="<?= $r['id']; ?>" <?php if($user_row)if($r['id']== $user_row['naturalwork_id']){
                         echo 'selected' ;} else echo '' ;
                     ?>><?= $r['title']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="profession_id">المهنة</label>
+            <select name="profession_id" id="profession_id" class="form-control selectpicker" data-live-search="true"  >
+                <option></option>
+                <?php $rows=$param['PROFESSIONS'];
+                foreach($rows as $r) : ?>
+                    <option value="<?= $r['id']; ?>" <?php if($user_row)if($r['id']== $user_row['profession_id']){
+                        echo 'selected' ;} else echo '' ;
+                    ?>><?= $r['category'].'-'.$r['profession_name']; ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -82,8 +97,8 @@
         </div>
         <div class="col-md-3">
             <label for="death_reason">سبب الوفاة</label>
-            <select name="death_reason" id="death_reason" class="form-control select2" >
-                <option value="0">اختر السبب</option>
+            <select name="death_reason" id="death_reason" class="form-control selectpicker" data-live-search="true"  >
+                <option></option>
                 <?php $rows=$param['DEATH_REASON'];
                 foreach($rows as $r) : ?>
                     <option value="<?= $r['id']; ?>"<?php if($user_row)if($r['id']== $user_row['death_reason_id']){
@@ -105,7 +120,7 @@
 
     <div class="form-group row">
 
-        <div class="col-md-4   mb-3 mb-sm-0">
+        <div class="col-md-3   mb-3 mb-sm-0">
             <label  > المواطنة</label>
             <div class="form-check col-sm-12">
                 <input class="form-check-input" type="radio" name="asylum_status" id="Refugee" value="1" required
@@ -120,7 +135,19 @@
                 <label class="form-check-label" for="Citizen"> مواطن</label>
             </div>
         </div>
-        <div class="col-md-4 d-none  mb-3 mb-sm-0">
+        <div class="col-md-3">
+            <label for="total_member_no">عدد الأفراد الإجمالي</label>
+            <input class="form-control" type="text" id="total_member_no" name="total_member_no" placeholder="عدد الأفراد " value="<?php if($user_row){echo $user_row['total_member_no'];}else echo '0' ?>" required/>
+        </div>
+        <div class="col-md-3">
+            <label for="male_no_under_me">عدد الابناء الذكور</label>
+            <input class="form-control" type="text" id="male_no_under_me" name="male_no_under_me" placeholder="عدد الذكور " value="<?php if($user_row)echo $user_row['male_no_under_me'];else echo '0' ?>" required/>
+        </div>
+        <div class="col-md-3">
+            <label for="femail_no_under_me">عدد الابناء الإناث</label>
+            <input class="form-control" type="text" id="femail_no_under_me" name="femail_no_under_me" placeholder="اعدد الإناث" value="<?php if($user_row)echo $user_row['femail_no_under_me'];else echo '0' ?>" required/>
+        </div>
+        <div class="col-md-3 d-none  mb-3 mb-sm-0">
             <label >الجنس </label>
             <div class="form-check col-sm-12">
                 <input class="form-check-input" type="radio" name="gender" id="male" value="1" required

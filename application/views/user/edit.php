@@ -14,23 +14,23 @@
     <div class="card shadow h-100 py-2">
         <div class="card shadow h-100 py-2">
             <div class="card-body">
-                <?= form_open_multipart('user/edit'); ?>
+                <?= form_open_multipart('user/edit/'.$user_data['id']); ?>
                     <div class="form-group row">
                         <label for="email" class="col-sm-2 col-form-label">البريد</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" readonly>
+                            <input type="text" class="form-control" id="email" name="email" value="<?= $user_data['email']; ?>" readonly>
                         </div>
                     </div>
                 <div class="form-group row">
                     <label for="email" class="col-sm-2 col-form-label">المستخدم</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="user_name" name="user_name" value="<?= $user['user_name']; ?>" readonly>
+                        <input type="text" class="form-control" id="user_name" name="user_name" value="<?= $user_data['user_name']; ?>" readonly>
                     </div>
                 </div>
                     <div class="form-group row">
                         <label for="name" class="col-sm-2 col-form-label">الإسم الرباعي</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="name" value="<?= $user['full_name']; ?>" readonly>
+                            <input type="text" class="form-control" id="name" name="name" value="<?= $user_data['full_name']; ?>" readonly>
                             <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                         <div class="col-sm-10">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-thumbnail">
+                                    <img src="<?= base_url('assets/img/profile/') . $user_data['image']; ?>" class="img-thumbnail">
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="custom-file">
@@ -76,15 +76,15 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+        <h5 class="modal-title" id="exampleModalLabel">هل أنت متأكد؟</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <div class="modal-body">Deleted accounts cannot be recovered!</div>
+      <div class="modal-body">لا يمكن استعادة ما تم حذفه!</div>
       <div class="modal-footer">
-        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-        <a id="btn-delete" class="btn btn-danger" href="#">Remove</a>
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">إلغاء</button>
+        <a id="btn-delete" class="btn btn-danger" href="#">حذف</a>
       </div>
     </div>
   </div>

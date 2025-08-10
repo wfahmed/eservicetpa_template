@@ -1,4 +1,5 @@
 function validatePalestinianID(identityCode) {
+
     // Ensure the input is exactly 9 digits
     if (!/^\d{9}$/.test(identityCode)) {
         return false;
@@ -63,6 +64,7 @@ function validatePalestinianID(identityCode) {
     // Check if the last digit matches the calculated valid digit
     return lastDigit === validDigit;
 }
+
 
 
 

@@ -24,6 +24,7 @@ class User extends MY_Controller {
     {
         if($id==NULL)
             $id=$this->session->userdata('id');
+
         $data['title'] = 'تعديل الملف الشخصي';
         $data['user'] = $this->db->get_where('user', ['id' => $id])->row_array();
 
@@ -42,7 +43,7 @@ class User extends MY_Controller {
 
             // upload image
             $upload_image = $_FILES['image']['name'];
-            
+
             if ($upload_image) {
                 $config['allowed_types']    = 'jpg|jpeg|png';
                 $config['max_size']         = '6000';
@@ -62,16 +63,19 @@ class User extends MY_Controller {
                     echo $this->upload->display_errors();
                 }
             }
-
             $this->db->set('full_name', $name);
-            $this->db->where('email', $email);
+            $this->db->where('id', $id);
             $this->db->update('user');
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             تم تعديل الملف الشخصي بنجاح!</div>');
-            redirect('user');
+
+            if($data['user']['id'] == $this->session->userdata('id'))
+                redirect('user');
+
+            redirect('user/edit/'.$id);
         }
-        
+
     }
 
     // change password user
@@ -118,7 +122,7 @@ class User extends MY_Controller {
                     $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
 
                     $this->db->set('password', $password_hash);
-                    $this->db->where('email', $this->session->userdata('email'));
+                    $this->db->where('id', $this->session->userdata('id'));
                     $this->db->update('user');
                     
                     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">

@@ -36,7 +36,7 @@
 
     <div class="card col-md-12 shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><a href="<?= base_url('member/family_show') ?>"><i class="fas fa-arrow-right"></i> رجوع</a></h6>
+            <h6 class="m-0 font-weight-bold text-primary"><a href="javascript:history.back()"><i class="fas fa-arrow-right"></i> رجوع</a></h6>
         </div>
         <div class="card-body">
             <form id="searchForm" action="<?=base_url().'agent/add'?>" method="POST">
@@ -52,7 +52,8 @@
                         <button id="searchButton" type="button" class="btn btn-primary">ابحث</button></div>
                     <div class="col-md-4">
                         <label for="relation_type_id">العلاقة</label>
-                        <select name="relation_type_id" id="relation_type_id" class="form-control" required>
+                        <select name="relation_type_id" id="relation_type_id" class="form-control selectpicker" required>
+                            <option></option>
                             <?php
                             $rows=$param['RELATION'];
                             foreach($rows as $r) : ?>
@@ -62,7 +63,8 @@
                     </div>
                     <div class="col-md-4 ">
                         <label for="agent_approve_id"> المعتمد</label>
-                        <select name="agent_approve_id" id="agent_approve_id" class="form-control" required>
+                        <select name="agent_approve_id" id="agent_approve_id" class="form-control selectpicker" required>
+                            <option></option>
                             <?php
                             $rows=$param['RELATION'];
                             foreach($rows as $r) : ?>

@@ -381,7 +381,30 @@ if ( ! function_exists('is_cli'))
 		return (PHP_SAPI === 'cli' OR defined('STDIN'));
 	}
 }
+function view($view, $data = array(), $options = array())
+{
+    // Load the CodeIgniter instance
+    $CI =& get_instance();
 
+    // Load the view library
+    $CI->load->library('view');
+
+    // Set the data array
+    $CI->view->set_data($data);
+
+    // Check if the 'saveData' option is set
+    if (array_key_exists('saveData', $options)) {
+        $saveData = (bool) $options['saveData'];
+        unset($options['saveData']);
+    } else {
+        $saveData = true; // Default to saving data in CodeIgniter 3
+    }
+
+    // Render the view
+    $output = $CI->view->render($view, $options, $saveData);
+
+    return $output;
+}
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('show_error'))

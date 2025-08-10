@@ -15,52 +15,73 @@
                             </div>
                         <?php endif; ?>
                     </div>
-                    <form class="user" method="post" action="<?= base_url('auth/registration'); ?>">
+                    <form class="user" method="post" action="<?= base_url('member/add_employee'); ?>">
                         <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
 
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <input type="text" required class="form-control form-control-user" id="fname" name="fname" placeholder="الاسم الاول">
+                                <label >الاسم</label>
+                                <input type="text" class="form-control form-control-user" id="fname" name="fname" placeholder="الاسم الاول" required>
                                 <?= form_error('fname', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" required class="form-control form-control-user" id="sname" name="sname" placeholder="الاسم الثاني">
+                                <label >الأب</label>
+                                <input type="text" class="form-control form-control-user" id="sname" name="sname" placeholder="الاسم الثاني" required>
                                 <?= form_error('sname', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <input type="text" required class="form-control form-control-user" id="tname" name="tname" placeholder="الاسم الثالث">
+                                <label >الجد</label>
+                                <input type="text" class="form-control form-control-user" id="tname" name="tname" placeholder="الاسم الثالث" required>
                                 <?= form_error('tname', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" required class="form-control form-control-user" id="lname" name="lname" placeholder="الاسم الرابع">
+                                <label >العائلة</label>
+                                <input type="text" class="form-control form-control-user" id="lname" name="lname" placeholder="الاسم الرابع" required>
                                 <?= form_error('lname', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                         </div>
                       <div class="form-group">
-                        <input type="text" class="form-control form-control-user" id="user_name" name="user_name" placeholder="رقم الهوية"
-                               pattern="\d{9}" required title="يجب أن يكون رقم الهوية 9 أرقام"
+                          <label >اسم المستخدم</label>
+                        <input type="text" class="form-control form-control-user" id="user_name" name="user_name" placeholder="اسم المستخدم" required
                         value="<?= set_value('user_name'); ?>">
                         <?= form_error('user_name', '<small class="text-danger pl-3">', '</small>'); ?>
                       </div>
                       <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                          <input type="password" required class="form-control form-control-user" id="password1" name="password1" placeholder="كلمة الكرور">
+                            <label >كلمة المرور</label>
+                          <input type="password" class="form-control form-control-user" id="password1" name="password1" placeholder="كلمة الكرور" required>
                           <?= form_error('password1', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div class="col-sm-6">
-                          <input type="password" required class="form-control form-control-user" id="password2" name="password2" placeholder="تحقق كلمة المرور">
+                            <label >إعادة كلمة المرور</label>
+                          <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="تحقق كلمة المرور" required>
                         </div>
                       </div>
+                          <div class="form-group row">
+                              <div class="col-sm-6 mb-3 mb-sm-0">
+                              <label >الصلاحية</label>
+                              <select name="role_id" id="role_id" class="form-control selectpicker" data-live-search="true"  required>
+                                  <?php
+                                  $rows=$param['roles'];
+                                  foreach($rows as $r) : ?>
+                                      <option value="<?= $r['id']; ?>" ><?= $r['role']; ?></option>
+                                  <?php endforeach; ?>
+                              </select>
+                          </div>
+                              <div class="col-sm-6 mb-3 mb-sm-0">
+                                  <label >الهوية</label>
+                                  <input type="text" class="form-control form-control-user" id="identity" name="identity" placeholder="الهوية" required
+
+                              </div>
+                          </div>
+
                       <button type="submit" class="btn btn-danger btn-user btn-block">
                         تسجيل حساب
                       </button>
                     </form>
                     <hr>
-                    <div class="text-center">
-                      <a class="small" href="<?= site_url('auth'); ?>">لديك حساب بالفعل؟ سجل الدخول الآن!</a>
-                    </div>
                   </div>
                 </div>
               </div>

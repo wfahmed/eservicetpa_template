@@ -54,20 +54,20 @@ class Agent extends MY_Controller
     // Retrieve search input
     $search_query = $this->input->post('search_query');
     $child_user_id = $this->input->post('child_user_id');
-
-    // Build the query
-    $this->db->select('*'); // Adjust fields as needed
-    $this->db->from('user');
-
+    $results='';
     if (!empty($search_query)) {
+        // Build the query
+        $this->db->select('*'); // Adjust fields as needed
+        $this->db->from('user');
         $this->db->group_start();
       //  $this->db->like('full_name', $search_query);
         $this->db->or_like('identity', $search_query);
         $this->db->group_end();
+        $query = $this->db->get();
+        $results = $query->row_array(); // Get results as an associative array
     }
 
-    $query = $this->db->get();
-    $results = $query->row_array(); // Get results as an associative array
+
     if(!empty($results)) {
         $agent_id = $results['id'];
         /* $res= $this->db->get_where('user', ['id ' => $agent_id])->result_array();
@@ -120,6 +120,10 @@ class Agent extends MY_Controller
             $user_id=$this->db->insert_id();
 
         }
+
+        $dataPar= $this->db->get_where('user', ['id' => $child_id])->row_array();
+        $child_identity=$dataPar['identity'];
+
                 $data = [
                     'last_user_agent_id'=>$user_id,
                     'last_user_agent_relation_id'=>$relation_type_id,
@@ -128,9 +132,12 @@ class Agent extends MY_Controller
                 ];
                 // var_dump($data);die();
                $this->db->update('user',$data, ['id' => $child_id]);
+
                   $data = [
                       'child_user_id'=>$child_id ,
+                      'child_identity'=>$child_identity ,
                       'agent_user_id' =>$user_id ,
+                      'agent_identity' =>$identity ,
                       'relation_type_id' => $relation_type_id,
                       'agent_approve_id' => $agent_approve_id,
                       'details' => $details,

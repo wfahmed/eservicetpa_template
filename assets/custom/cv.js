@@ -56,9 +56,11 @@ function getHealthDetails(id) {
                 // Update form fields
                 $('#attach_id', form).val(response.attach_id);
                 $('#user_id', form).val(response.usid); // Corrected from `usid` to `user_id`
-                $('#disability_type_id', form).val(response.disability_type_id);
-                $('#health_status_id', form).val(response.health_status_id);
+                $('#disability_type_id', form).val(response.disability_type_id).selectpicker('refresh');
+                $('#health_status_id', form).val(response.health_status_id).selectpicker('refresh');
                 $('#health_details', form).val(response.health_details);
+                $('#disease_type', form).val(response.disease_type);
+                $('#psychological_status_id', form).val(response.psychological_status_id).selectpicker('refresh');
 
                 // Handle the health report link visibility and href
                 var healthReport = $('#healthReport', form);
@@ -77,6 +79,16 @@ function getHealthDetails(id) {
     });
 }
 
+function initializeSelect() {
+    $('.selectpicker').selectpicker({
+        liveSearchPlaceholder: 'ابحث....',// Set a placeholder for search
+        noneSelectedText: 'اختر', // Placeholder text
+        deselectAllText: 'إلغاء التحديد', // Custom text for deselect
+        selectAllText: 'تحديد الكل', // Custom text for select all
+        liveSearch: true,  // Enable live search if needed
+        actionsBox: true
+    });
+}
 function populateSubTypes(selectedNeedTypeId) {
     if (selectedNeedTypeId) {
         $.ajax({
@@ -99,6 +111,8 @@ function populateSubTypes(selectedNeedTypeId) {
                         $('<option></option>').val('').text('No options available')
                     );
                 }
+                // Refresh the selectpicker after updating options
+                $subTypeSelect.selectpicker('refresh');
             },
             error: function(xhr, status, error) {
                 console.error('AJAX error:', status, error);
@@ -106,7 +120,6 @@ function populateSubTypes(selectedNeedTypeId) {
         });
     }
 }
-
 
 function initializeFormHandlers() {
     var healthForm = document.getElementById('healthForm');
@@ -136,12 +149,11 @@ function initializeFormHandlers() {
     }
 
     var hobForm = document.getElementById('hobForm');
+
     if (hobForm) {
-        $('#hobby_id',hobForm).select2({
-            placeholder: "اختر الهوايات",
-            allowClear: true
-        });
+
     }
+
 
     var needForm = document.getElementById('needForm');
     if (needForm) {
@@ -154,10 +166,10 @@ function initializeFormHandlers() {
                 populateSubTypes(selectedNeedTypeId);
             }
         });
-        $('#needu_sub_type_id',needForm).select2({
+      /*  $('#needu_sub_type_id',needForm).select2({
             placeholder: "اختر الاحتياج",
             allowClear: true
-        });
+        });*/
     }
 }
 
@@ -187,8 +199,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
-
+function getUrlSegment(segmentIndex) {
+    const urlSegments = window.location.pathname.split('/'); // Split the URL path
+    return urlSegments[segmentIndex] || null; // Return the segment or null if not found
+}
 $(document).ready(function() {
+
     $('.tab-links div').on('click', function(e) {
         e.preventDefault();
         var tabId = $(this).data('tab');
@@ -200,6 +216,30 @@ $(document).ready(function() {
             $(target).load(base_url+'cv/load_tab/'+tabId+'/'+Id, function() {
                 $(target).addClass('loaded');
                 initializeFormHandlers();
+                initializeSelect();
+                if(tabId==3){
+                    $('#hobby_id').selectpicker({
+                        multiple: true ,// Enable multiple selections if required
+                        liveSearchPlaceholder: 'ابحث....',// Set a placeholder for search
+                        noneSelectedText: 'اختر', // Placeholder text
+                        deselectAllText: 'إلغاء التحديد', // Custom text for deselect
+                        selectAllText: 'تحديد الكل', // Custom text for select all
+                        liveSearch: true,  // Enable live search if needed
+                        actionsBox: true
+                    });
+                }
+                if(tabId==4){
+                    $('#needu_sub_type_id').selectpicker({
+                        multiple: true ,// Enable multiple selections if required
+                        liveSearchPlaceholder: 'ابحث....',// Set a placeholder for search
+                        noneSelectedText: 'اختر', // Placeholder text
+                        deselectAllText: 'إلغاء التحديد', // Custom text for deselect
+                        selectAllText: 'تحديد الكل', // Custom text for select all
+                        liveSearch: true,  // Enable live search if needed
+                        actionsBox: true
+                    });
+                }
+
             });
         } else {
            // initializeTabDatepickers(); // Reinitialize Datepicker if tab was already loaded
@@ -209,6 +249,7 @@ $(document).ready(function() {
     var tabId = getUrlSegment(4);
 
     if (tabId) {
+
         $('#t' + tabId + '_tab').click(); // Click the tab dynamically
     } else {
         // Default tab if no tabId is found
@@ -216,4 +257,5 @@ $(document).ready(function() {
             $('#t1_tab').click();
         }, 100);  // Adjust this timeout if needed
     }
+
 });

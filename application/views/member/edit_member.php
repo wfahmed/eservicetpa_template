@@ -34,12 +34,21 @@
         </div>
     <?php endif; ?>
 
-    <?= $this->session->flashdata('message'); ?>
+    <?php if ($this->session->flashdata('message')){
+        echo $this->session->flashdata('message');
+        $this->session->unset_userdata('message');
+    }  ?>
+
+    <?php if ($this->session->flashdata('dbmessage')){
+        echo $this->session->flashdata('dbmessage');
+        $this->session->unset_userdata('dbmessage');
+    }  ?>
+
     <?php $tab_id=$param['tab_id'] ;//var_dump($tab_id);die();?>
 
     <div class="card col-md-12 shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><a href="<?= base_url('member/family_show') ?>"><i class="fas fa-arrow-right"></i> رجوع</a></h6>
+            <h6 class="m-0 font-weight-bold text-primary"><a href="javascript:history.back()"><i class="fas fa-arrow-right"></i> رجوع</a></h6>
         </div>
         <div class="card-body">
             <div class="tab-container">
@@ -49,12 +58,14 @@
                     <div class=""  data-id="<?=$param['id']?>"  data-tab="5" id="t5_tab">بيانات الأبناء</div>
                     <div class=" "  data-id="<?=$param['id']?>"  data-tab="2" id="t2_tab">بيانات الإتصال</div>
                     <div class=""  data-id="<?=$param['id']?>"  data-tab="3" id="t3_tab">بيانات السكن</div>
+                    <div class=""  data-id="<?=$param['id']?>"  data-tab="6" id="t6_tab">المرفقات</div>
                 </div>
                     <div id="tab1" class="tab-content show "></div>
                     <div id="tab2"   class="tab-content"> </div>
                     <div id="tab3" class="tab-content"></div>
                     <div id="tab4" class="tab-content"></div>
                     <div id="tab5" class="tab-content"></div>
+                    <div id="tab6" class="tab-content"></div>
 
 
             </div>

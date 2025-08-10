@@ -29,9 +29,21 @@ class Croncontroller extends CI_Controller {
     }
 
     private function calculate_age($dob) {
-        $dob = new DateTime($dob);
-        $today = new DateTime(date("Y-m-d"));
+        try {
+            // Create a DateTime object from the input DOB string
+            $dob = new DateTime($dob);
+        } catch (Exception $e) {
+            // Handle invalid date formats gracefully
+            return "Invalid date format";
+        }
+
+        // Get today's date
+        $today = new DateTime();
+
+        // Calculate the difference between today and the DOB
         $age = $today->diff($dob)->y;
+
         return $age;
     }
+
 }

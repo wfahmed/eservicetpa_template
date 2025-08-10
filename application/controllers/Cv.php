@@ -38,8 +38,13 @@ class Cv extends MY_Controller {
         switch($tab_id){
             case 1:
                 $data['param']['DISABILITY_STATUS'] = (array)$this->db->get_where('constants', ['parent_id' => DISABILITY_STATUS])->result_array();
+                $data['param']['PSYCHOLOGICAL'] = (array)$this->db->get_where('constants', ['parent_id' => PSYCHOLOGICAL])->result_array();
                 $data['param']['HEALTH'] = (array)$this->db->get_where('constants', ['parent_id' => HEALTH])->result_array();
                 $join_array = array(
+                    array(
+                        'table_name' => 'constants conPy',
+                        'condition' => 'user_health.psychological_status_id = conPy.id'
+                    ),
                     array(
                         'table_name' => 'constants conD',
                         'condition' => 'user_health.disability_type_id   = conD.id '
@@ -57,7 +62,7 @@ class Cv extends MY_Controller {
                         'condition' => 'attach.attach_type_id = conT.id'
                     ),
                 );
-                $dataHealth= $this->Base_model->get_with_join('user_health.*,attach.*,con.title as health_status,conD.title as disability_type, conT.title as attach_type',
+                $dataHealth= $this->Base_model->get_with_join('user_health.*,attach.*,con.title as health_status,conD.title as disability_type, conT.title as attach_type ,conPy.title as psychological_status',
                     'user_health', $join_array, '  user_health.deleted_by  is  null and user_health.user_id ='.$id,
                     'user_health.health_id asc');
               //  var_dump($dataHealth);
@@ -90,6 +95,7 @@ class Cv extends MY_Controller {
                 }
                 $data['param']['EDUCATION'] =$itemsByCategory;
                 $join_array = array(
+
                     array(
                         'table_name' => 'constants conD',
                         'condition' => 'user_education.edu_level_id   = conD.id '
@@ -146,6 +152,21 @@ class Cv extends MY_Controller {
                     'user_need.need_id asc');
                 $data['param']['tab_id'] =$tab_id;
                 $data['param']['need'] =$dataNeed;
+                break;
+            case 5:
+
+                $data['param']['MEMORIZE'] = (array)$this->db->get_where('constants', ['parent_id' => QURAN])->result_array();
+                $join_array = array(
+                    array(
+                        'table_name' => 'constants con',
+                        'condition' => 'user_memorize_quran.memorize_type_id    = con.id '
+                    )
+                );
+                $dataMem= $this->Base_model->get_with_join('user_memorize_quran.*,con.title as memorize_type',
+                    'user_memorize_quran', $join_array, '    user_memorize_quran.user_id ='.$id,
+                    'user_memorize_quran.memorize_id  asc');
+                $data['param']['tab_id'] =$tab_id;
+                $data['param']['mem'] =$dataMem;
                 break;
         }
 
@@ -358,7 +379,6 @@ class Cv extends MY_Controller {
 
                 $this->load->library('upload', $config);
 
-
                 if ($this->upload->do_upload('edu_file')) {
                     $upload_data = $this->upload->data();
                     // Generate a new file name with a date and serial number
@@ -382,6 +402,13 @@ class Cv extends MY_Controller {
             //  var_dump($data);
             if ($this->db->insert('user_education', $data)) {
                 $insert_id = $this->db->insert_id();
+                $data = [
+                    'last_edu_status'=>$edu_stage_id,
+                    'updated_by' => $this->session->userdata('id'),
+                    'updated_at' => date('Y-m-d')
+                ];
+                // var_dump($data);die();
+                $this->db->update('user',$data, ['id' => $user_id]);
 
                 if ($file != 'no') {
                     $data = [
@@ -411,7 +438,72 @@ class Cv extends MY_Controller {
             redirect('cv/index/' . $user_id . '/2');
         }
     }
+    public function add_memorize()
+    {
+        $user_id = $this->input->post('user_id');
+        $this->form_validation->set_rules('user_id', 'User ID', 'required|numeric');
+        $this->form_validation->set_rules('memorize_type_id', 'memorize_type_id Type ID', 'required|numeric');
+ //var_dump($_POST);die();
+        if ($this->form_validation->run()) {
+            $memorize_id = $this->input->post('memorize_id');
+            $memorize_type_id = $this->input->post('memorize_type_id');
+            $memorize_details= $this->input->post('memorize_details');
 
+            $data = [
+                'user_id' => $user_id,
+                'memorize_type_id' => $memorize_type_id,
+                'memorize_details' => $memorize_details,
+                'created_by' => $this->session->userdata('id'),
+                'created_at' => date('Y-m-d')
+            ];
+            //  var_dump($data);
+            if ($this->db->insert('user_memorize_quran', $data)) {
+
+                $data = [
+                    'last_memorize_quran'=>$memorize_type_id,
+                    'updated_by' => $this->session->userdata('id'),
+                    'updated_at' => date('Y-m-d')
+                ];
+                // var_dump($data);die();
+                $this->db->update('user',$data, ['id' => $user_id]);
+                $insert_id = $this->db->insert_id();
+
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            تمت الإضافة  بنجاح</div>');
+                redirect('cv/index/'.$user_id .'/5');
+
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            فشل الاضافة</div>');
+                redirect('cv/index/' . $user_id . '/5');
+            }
+        }else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            فشل المتطلبات والتحقق</div>');
+            redirect('cv/index/' . $user_id . '/5');
+        }
+    }
+
+    public function delete_memorize($id,$user_id=null,$tab_id=1)
+    {
+        if($this->db->delete('user_memorize_quran',['memorize_id' => $id])){
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        تم الحذف بنجاح!</div>');
+            switch($tab_id){
+                case 1:
+                    redirect('cv/index/'.$user_id.'/5');
+                    break;
+                default:
+                    redirect('member/family_show/');
+                    break;
+            }
+        }else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+        فشل الحذف!</div>');
+            redirect('member/family_show/');
+        }
+
+    }
     /**
      * delete edu
      */
@@ -562,6 +654,8 @@ class Cv extends MY_Controller {
             $disability_type_id = $this->input->post('disability_type_id');
             $health_status_id = $this->input->post('health_status_id');
             $health_details = $this->input->post('health_details');
+            $psychological_status_id = $this->input->post('psychological_status_id');
+            $disease_type = $this->input->post('disease_type');
 
             //var_dump($this->input->post());die();
             /****files***/
@@ -573,10 +667,7 @@ class Cv extends MY_Controller {
                 $config['allowed_types'] = '*';
                 $config['max_size'] = '6000';
                 $config['upload_path'] = './assets/uploads/attach/';
-
                 $this->load->library('upload', $config);
-
-
                 if ($this->upload->do_upload('file')) {
                     $upload_data = $this->upload->data();
                     // Generate a new file name with a date and serial number
@@ -592,16 +683,27 @@ class Cv extends MY_Controller {
             $data = [
                 'user_id' => $user_id,
                 'disability_type_id' => $disability_type_id,
+                'psychological_status_id' => $psychological_status_id,
                 'health_status_id' => $health_status_id,
                 'health_details' => $health_details,
+                'disease_type' => $disease_type,
                 'created_by' => $this->session->userdata('id'),
                 'created_at' => date('Y-m-d')
             ];
           //  var_dump($data);
             if ($this->db->insert('user_health', $data)) {
                 $insert_id = $this->db->insert_id();
-
+                $data = [
+                    'last_health_status'=>$health_status_id,
+                    'last_disability_status'=>$disability_type_id,
+                    'last_psychological_status'=>$psychological_status_id,
+                    'updated_by' => $this->session->userdata('id'),
+                    'updated_at' => date('Y-m-d')
+                ];
+                // var_dump($data);die();
+                $this->db->update('user',$data, ['id' => $user_id]);
                 if ($file != 'no') {
+                  //  var_dump($insert_id);die();
                     $data = [
                         'user_id' => $user_id,
                         'attach_type_id' => HEALTH_REPORT,
@@ -638,6 +740,10 @@ class Cv extends MY_Controller {
 
         $join_array = array(
             array(
+                'table_name' => 'constants conPy',
+                'condition' => 'user_health.psychological_status_id = conPy.id'
+            ),
+            array(
                 'table_name' => 'constants conD',
                 'condition' => 'user_health.disability_type_id = conD.id'
             ),
@@ -652,7 +758,10 @@ class Cv extends MY_Controller {
         );
 
         $dataHealth = $this->Base_model->get_with_join(
-            'user_health.*, attach.*,user_health.user_id as usid, con.title as health_status, conD.title as disability_type',
+            'user_health.*, attach.*,user_health.user_id as usid,
+             con.title as health_status,
+             conD.title as disability_type, 
+            conPy.title as psychological_status,disease_type',
             'user_health',
             $join_array,
             'user_health.deleted_by IS NULL AND user_health.health_id = '.$health_id,

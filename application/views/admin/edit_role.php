@@ -12,7 +12,7 @@ $role=$param['role'];
     ?>
     <div class="card col-lg-7 shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><a href="<?= base_url('admin/role') ?>"><i class="fas fa-arrow-right"></i> رجوع</a></h6>
+            <h6 class="m-0 font-weight-bold text-primary"><a href="javascript:history.back()"><i class="fas fa-arrow-right"></i> رجوع</a></h6>
         </div>
         <div class="card-body">
             <form action="" method="post" enctype="multipart/form-data">

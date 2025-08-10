@@ -18,10 +18,17 @@ class Auth extends CI_Controller {
 
         if ($this->session->userdata('user_name')) {
            //  var_dump($this->session->userdata('role_id'));die();
-            if($this->session->userdata('role_id')==1)
-                redirect('admin');
-            else
-            redirect('User');
+            switch ($this->session->userdata('role_id')) {
+                case 1:
+                    redirect('admin');
+                    break;
+                case 2:
+                    redirect('admin');
+                    break;
+                default:
+                    redirect('User');
+                    break;
+            }
         }
 
         $this->form_validation->set_rules('user_name', 'user_name', 'required|trim', [
@@ -69,6 +76,9 @@ class Auth extends CI_Controller {
                         redirect('admin');
                         break;
                     case 2:
+                        redirect('member');
+                        break;
+                    case 3:
                         redirect('profile');
                         break;
                 }
@@ -135,7 +145,7 @@ class Auth extends CI_Controller {
               ];
               echo json_encode($response);
               break;
-          case 2:
+          case 2://correct
               $user = $this->db->get_where('user', ['user_name' => $user_name])->row_array();
               $data = [
                   'email' => $user['email'],
@@ -149,7 +159,7 @@ class Auth extends CI_Controller {
               if ($user['is_emp'] == "1") {
                   $status='admin';
               } else {
-                  $status='profile';
+                  $status='user';
               }
               $response = [
                   'status' => $status,
@@ -212,15 +222,17 @@ class Auth extends CI_Controller {
                 'lname' => htmlspecialchars($lname),
                 'full_name' => $full_name,
                 'user_name' => htmlspecialchars($user_name),
+                'identity' => htmlspecialchars($user_name),
                 'image' => 'default.jpg',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-                'role_id' => 2,
-                'is_active' => 1,//0,
-                'date_created' => date("d-m-Y"),//time()
+                'role_id' => 3,
+                'is_active' => 1
             ];
            $result= $this->db->insert('user', $data);
-          //  var_dump($result);die();
-            $userCheck = $this->UserModel->verify_user($user_name, $password);
+            redirect('user');
+           // var_dump('لاحقاً سيتم منحك صلاحيات');die();
+
+         /*   $userCheck = $this->UserModel->verify_user($user_name, $password);
             if (isset($userCheck)) {
                 $user = $this->db->get_where('user', ['user_name' => $user_name])->row_array();
                 $data = [
@@ -237,7 +249,7 @@ class Auth extends CI_Controller {
                     redirect('user');
                 }
             }
-
+*/
         }
     }
 

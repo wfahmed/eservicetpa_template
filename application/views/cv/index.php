@@ -23,7 +23,7 @@
 
     <div class="card col-md-12 shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><a href="<?= base_url('member/family_show') ?>"><i class="fas fa-arrow-right"></i> رجوع</a></h6>
+            <h6 class="m-0 font-weight-bold text-primary"><a href="javascript:history.back()"><i class="fas fa-arrow-right"></i> رجوع</a></h6>
         </div>
         <div class="card-body">
             <div class="tab-container">
@@ -32,7 +32,8 @@
                     <div class=""  data-id="<?=$param['id']?>"  data-tab="2" id="t2_tab">المرحلة التعليمية</div>
                     <div class=""  data-id="<?=$param['id']?>"  data-tab="3" id="t3_tab">الهوايات</div>
                     <div class=" "  data-id="<?=$param['id']?>"  data-tab="4" id="t4_tab">الاحتياجات</div>
-                    <div class="d-none"  data-id="<?=$param['id']?>"  data-tab="5" id="t5_tab" >الوكيل</div>
+                    <div class=" "  data-id="<?=$param['id']?>"  data-tab="5" id="t5_tab">حفظ القرآن</div>
+                    <div class="d-none"  data-id="<?=$param['id']?>"  data-tab="6" id="t6_tab" >الوكيل</div>
                 </div>
                 <div id="tab1" class="tab-content show "></div>
                 <div id="tab2"   class="tab-content"> </div>

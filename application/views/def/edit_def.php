@@ -22,7 +22,7 @@ $rows=$this->data['param']['rows'];
 
     <div class="card col-lg-7 shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><a href="<?= base_url('admin/def') ?>"><i class="fas fa-arrow-right"></i> رجوع</a></h6>
+            <h6 class="m-0 font-weight-bold text-primary"><a href="javascript:history.back()"><i class="fas fa-arrow-right"></i> رجوع</a></h6>
         </div>
         <div class="card-body">
             <form action="" method="post" enctype="multipart/form-data">
@@ -31,7 +31,7 @@ $rows=$this->data['param']['rows'];
                     <input type="text" class="form-control" id="title" name="title" placeholder="الثابت" value="<?=$param['title']?>">
                 </div>
                 <div class="form-group">
-                    <select name="parent_id" id="parent_id" class="form-control select2" >
+                    <select name="parent_id" id="parent_id" class="form-control selectpicker " data-live-search="true" >
                         <option value="">---اختر التعريف الرئيسي---</option>
                         <?php ;
                         foreach($rows as $r) : ?>

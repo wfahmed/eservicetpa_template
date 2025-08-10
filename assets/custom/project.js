@@ -153,7 +153,6 @@ $(document).ready(function() {
         }
     });
 
-
     $('#unit_price').on('blur', function() {
         var u_price = parseFloat($('#unit_price').val()) || 0; // Convert to number, default to 0 if NaN
         var unit_amount = parseFloat($('#unit_amount').val()) || 0; // Convert to number, default to 0 if NaN

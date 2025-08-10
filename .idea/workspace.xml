@@ -1,7 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="f89a49d6-3ee2-44e7-990b-5a135c397213" name="Changes" comment="" />
+    <list default="true" id="0d4ebb6f-cbd7-444b-a6a8-64b6933f6a1e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/application/controllers/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/libraries/HierarchyLib.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/libraries/View.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/models/OrphanModel.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/member/registration.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/report/header.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/views/report/index_.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/template/css/select.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/template/js/select.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/eservicetpa.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/25.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/config/constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/constants.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/config/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/routes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Agent.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Agent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Croncontroller.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Croncontroller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Cv.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Cv.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Member.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Member.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/OracleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/OracleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Orphan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Orphan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Project.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Report.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Search_project.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Supplier.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/core/MY_Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/core/MY_Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/helpers/login_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/login_helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/Menu_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/Menu_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/UserModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/UserModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/edit_role.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/edit_role.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/agent/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/agent/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/auth/registration.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/auth/registration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cv/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cv/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cv/tab1_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cv/tab1_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/cv/tab4_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/cv/tab4_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/def/edit_def.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/def/edit_def.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/def/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/def/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/member/add_member.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/member/add_member.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/member/data_member.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/member/data_member.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/member/detail_member.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/member/detail_member.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/member/edit_member.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/member/edit_member.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/member/edit_member_light.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/member/edit_member_light.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/member/tab1_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/member/tab1_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/member/tab2_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/member/tab2_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/member/tab3_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/member/tab3_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/member/tab4_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/member/tab4_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/member/tab5_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/member/tab5_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/menu/edit_menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/menu/edit_menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/menu/edit_submenu.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/menu/edit_submenu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/orphan/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/orphan/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/edit_project.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/print_project.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/project_stages.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/project_supply.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/project/project_supply_pay.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/report/add_report.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/report/detail.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/report/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/report/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/search_project/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/supplier/debts_supplier.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/supplier/edit_sup.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/supplier/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/supplier/print_supplier.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/templates/admin_footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/admin_footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/templates/admin_header.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/admin_header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/templates/auth_footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/templates/auth_footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/user/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/user/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/user/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/user/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/custom/add_member.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/custom/add_member.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/custom/contact.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/custom/contact.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/custom/cv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/custom/cv.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/custom/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/custom/dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/custom/member.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/custom/member.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/custom/orphan.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/custom/orphan.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/custom/project.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/custom/project.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/custom/tab_manage.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/custom/tab_manage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/custom/validate_identity.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/custom/validate_identity.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/favicon.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/favicon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/logoblack.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/template/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/template/css/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/template/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/template/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/vendor/bootstrap/dist/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/vendor/bootstrap/dist/css/bootstrap.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/erservicetpa-mysql/eservicetpa (1).sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/erservicetpa-mysql/eservicetpa (2).sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/eservicetpa (17).sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/git-code.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/core/Common.php" beforeDir="false" afterPath="$PROJECT_DIR$/system/core/Common.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/libraries/Session/Session_driver.php" beforeDir="false" afterPath="$PROJECT_DIR$/system/libraries/Session/Session_driver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,19 +118,29 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="CSS File" />
-        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectId" id="2l9xirxdkW6siiNgouWvh4mGhH3" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;wfahmed&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/wfahmed/eservicetpa_template.git&quot;,
+    &quot;accountId&quot;: &quot;d50eb23f-8523-4796-b9a7-f8bd9c389d20&quot;
+  }
+}</component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp\php\php.exe" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2nz0tAExPfjKs42oYQSTXjfq2Ki" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -34,107 +148,88 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/xampp/htdocs/eservicetpa",
-    "list.type.of.created.stylesheet": "CSS",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/xampp/htdocs/eservice",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
-  },
-  "keyToStringList": {
-    "GitStage.ChangesTree.GroupingKeys": [
-      "directory",
-      "module",
-      "repository"
-    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\eservicetpa\application\controllers" />
-      <recent name="C:\xampp\htdocs\eservicetpa\application\views\orphan" />
-      <recent name="C:\xampp\htdocs\eservicetpa\application\views\agent" />
-      <recent name="C:\xampp\htdocs\eservicetpa\application\views\cv" />
-      <recent name="C:\xampp\htdocs\eservicetpa\assets\custom" />
+      <recent name="C:\xampp\htdocs\eservice\application\views\member" />
+      <recent name="C:\xampp\htdocs\eservice\application\views\report" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\eservicetpa\assets\vendor\bootstrap\dist\js" />
-      <recent name="C:\xampp\htdocs\eservicetpa\assets\vendor\bootstrap\dist" />
-      <recent name="C:\xampp\htdocs\eservicetpa\assets\template\css\fonts" />
-      <recent name="C:\xampp\htdocs\eservicetpa\assets\template\css" />
-      <recent name="C:\xampp\htdocs\eservicetpa\assets\template\js" />
-    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PS-242.23339.16" />
+        <option value="bundled-php-predefined-a98d8de5180a-90914f2295cb-com.jetbrains.php.sharedIndexes-PS-242.23339.16" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f89a49d6-3ee2-44e7-990b-5a135c397213" name="Changes" comment="" />
-      <created>1724606223651</created>
+      <changelist id="0d4ebb6f-cbd7-444b-a6a8-64b6933f6a1e" name="Changes" comment="" />
+      <created>1729960808446</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1724606223651</updated>
-      <workItem from="1724606224865" duration="15000" />
-      <workItem from="1724606276601" duration="17045000" />
-      <workItem from="1724658410826" duration="40763000" />
-      <workItem from="1724756943322" duration="23068000" />
-      <workItem from="1724825847550" duration="39890000" />
-      <workItem from="1724878512434" duration="6527000" />
-      <workItem from="1724921092921" duration="26062000" />
-      <workItem from="1725037188811" duration="10985000" />
-      <workItem from="1725086880361" duration="10061000" />
-      <workItem from="1725101127693" duration="2191000" />
-      <workItem from="1725105038451" duration="1279000" />
-      <workItem from="1725117647073" duration="17472000" />
-      <workItem from="1725175027193" duration="42572000" />
-      <workItem from="1725266996060" duration="4969000" />
-      <workItem from="1725529498157" duration="27992000" />
-      <workItem from="1725614810387" duration="24824000" />
-      <workItem from="1725767363328" duration="16367000" />
-      <workItem from="1725804831366" duration="9832000" />
-      <workItem from="1725826963080" duration="37000" />
-      <workItem from="1725859566568" duration="1811000" />
-      <workItem from="1725862311782" duration="51545000" />
-      <workItem from="1726064456741" duration="5438000" />
-      <workItem from="1726135370472" duration="595000" />
-      <workItem from="1726209426670" duration="28228000" />
-      <workItem from="1726315166908" duration="30869000" />
-      <workItem from="1726475375053" duration="16927000" />
-      <workItem from="1726661850663" duration="1458000" />
-      <workItem from="1726688123038" duration="1406000" />
-      <workItem from="1726832020233" duration="785000" />
-      <workItem from="1726833594850" duration="340000" />
-      <workItem from="1726835150555" duration="1493000" />
-      <workItem from="1727044015593" duration="673000" />
-      <workItem from="1727352519087" duration="849000" />
-      <workItem from="1727723747931" duration="3108000" />
-      <workItem from="1727730417736" duration="2820000" />
-      <workItem from="1727772190838" duration="9000" />
-      <workItem from="1727773320826" duration="3765000" />
-      <workItem from="1727936964812" duration="1696000" />
-      <workItem from="1727950693282" duration="639000" />
-      <workItem from="1727983044356" duration="2882000" />
-      <workItem from="1727990080351" duration="721000" />
-      <workItem from="1728140386450" duration="791000" />
-      <workItem from="1728245594831" duration="3942000" />
-      <workItem from="1728273694569" duration="802000" />
-      <workItem from="1728276834815" duration="12000" />
-      <workItem from="1728397635696" duration="1117000" />
+      <updated>1729960808446</updated>
+      <workItem from="1729960809474" duration="2714000" />
+      <workItem from="1730477981247" duration="14149000" />
+      <workItem from="1730637123369" duration="849000" />
+      <workItem from="1730647641598" duration="654000" />
+      <workItem from="1731069223362" duration="16722000" />
+      <workItem from="1731127963213" duration="7533000" />
+      <workItem from="1732550067832" duration="5019000" />
+      <workItem from="1732564136273" duration="39000" />
+      <workItem from="1732565247915" duration="2431000" />
+      <workItem from="1732725742519" duration="1125000" />
+      <workItem from="1733305936252" duration="1251000" />
+      <workItem from="1733481793798" duration="36000" />
+      <workItem from="1733731010065" duration="10114000" />
+      <workItem from="1733949374809" duration="3591000" />
+      <workItem from="1733980360731" duration="7511000" />
+      <workItem from="1735315646226" duration="5208000" />
+      <workItem from="1735335966366" duration="119000" />
+      <workItem from="1735336490760" duration="103000" />
+      <workItem from="1736676124110" duration="32000" />
+      <workItem from="1736754797026" duration="145000" />
+      <workItem from="1736908038462" duration="105000" />
+      <workItem from="1737146053932" duration="5501000" />
+      <workItem from="1737152847690" duration="3173000" />
+      <workItem from="1738836538210" duration="3010000" />
+      <workItem from="1739174732196" duration="1689000" />
+      <workItem from="1739339206620" duration="1040000" />
+      <workItem from="1739356986956" duration="4126000" />
+      <workItem from="1739370837225" duration="607000" />
+      <workItem from="1739775940017" duration="668000" />
+      <workItem from="1739859873036" duration="4023000" />
+      <workItem from="1739977432509" duration="1398000" />
+      <workItem from="1740032154444" duration="604000" />
+      <workItem from="1740033207336" duration="4290000" />
+      <workItem from="1740473776996" duration="1359000" />
+      <workItem from="1740500989894" duration="4000" />
+      <workItem from="1740553610379" duration="17000" />
+      <workItem from="1741514024238" duration="2738000" />
+      <workItem from="1741587760606" duration="2772000" />
+      <workItem from="1741594626614" duration="2909000" />
+      <workItem from="1742119337008" duration="2285000" />
+      <workItem from="1742190321384" duration="799000" />
+      <workItem from="1745062045751" duration="1330000" />
+      <workItem from="1745067995253" duration="12000" />
+      <workItem from="1753370382843" duration="1777000" />
+      <workItem from="1754831334137" duration="138000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>
